@@ -50,11 +50,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState(validatedProjects);
   const [featuredProject, setFeaturedProject] = useState(validatedProjects[0]);
-  const [countdown, setCountdown] = useState({
-    hours: 15,
-    minutes: 32,
-    seconds: 17,
-  });
+
   const [activeTab, setActiveTab] = useState("all");
 
   // Filter projects based on category and search query
@@ -93,24 +89,6 @@ export default function Home() {
     }, 30000);
 
     return () => clearInterval(interval);
-  }, []);
-
-  // Countdown timer
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        } else if (prev.hours > 0) {
-          return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        }
-        return { hours: 15, minutes: 32, seconds: 17 };
-      });
-    }, 1000);
-
-    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -187,12 +165,6 @@ export default function Home() {
                     height={400}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute bottom-4 left-4 z-20 bg-black/60 backdrop-blur-sm rounded-lg px-3 py-1">
-                    <div className="text-sm font-medium">
-                      {countdown.hours}h : {countdown.minutes}m :{" "}
-                      {countdown.seconds}s
-                    </div>
-                  </div>
                 </div>
 
                 <div className="p-6 flex flex-col justify-between">
