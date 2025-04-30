@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
 import {
   Search,
@@ -10,7 +10,6 @@ import {
   SquareArrowLeft,
   Briefcase,
   Code,
-  ChevronRight,
 } from "lucide-react";
 import { validateProjects } from "@/lib/utils";
 import { Particles } from "@/components/ui/particle";
@@ -86,7 +85,7 @@ export default function Home() {
     const interval = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * validatedProjects.length);
       setFeaturedProject(validatedProjects[randomIndex]);
-    }, 30000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, []);
@@ -100,9 +99,9 @@ export default function Home() {
         color="#ffffff"
         refresh
       />
-      <div className="relative z-10">
+      <div className="relative z-10 mt-7 sm:mt-13 xl:mt-5">
         {/* Search Bar */}
-        <header className="flex items-center justify-center p-6 pb-0">
+        <header className="flex items-center justify-center p-6 sm:p-0 pb-0 xl:pb-2 ">
           <div className="relative max-w-[900px] w-full">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Search className="h-4 w-4 text-gray-400" />
@@ -110,7 +109,7 @@ export default function Home() {
             <input
               type="text"
               placeholder="Search projects, technologies..."
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg py-3 sm:py-4  pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-gray-600"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -127,10 +126,10 @@ export default function Home() {
                   <span>Back To Home</span>
                 </Link>
               </div>
-              <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700/50 cursor-pointer ">
+              {/* <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700/50 cursor-pointer ">
                 <Briefcase size={18} className="text-gray-400" />
                 <span>All projects</span>
-              </div>
+              </div> */}
             </div>
 
             <div className="border border-gray-700 rounded-xl p-4">
@@ -138,22 +137,19 @@ export default function Home() {
                 Categories
               </h3>
               <div className="flex flex-col gap-2">
-                {categories.map(
-                  (category) =>
-                    category !== "all" && (
-                      <button
-                        key={category}
-                        onClick={() => setSelectedCategory(category)}
-                        className={`text-left p-2 rounded-lg text-sm ${
-                          selectedCategory === category
-                            ? "bg-gray-700 text-white"
-                            : "hover:bg-gray-700/50"
-                        }`}
-                      >
-                        <span className="capitalize">{category}</span>
-                      </button>
-                    )
-                )}
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`text-left p-2 rounded-lg text-sm ${
+                      selectedCategory === category
+                        ? "bg-gray-700 text-white"
+                        : "hover:bg-gray-700/50"
+                    }`}
+                  >
+                    <span className="capitalize">{category}</span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
@@ -162,9 +158,16 @@ export default function Home() {
           <div className="flex flex-col gap-6">
             {/* Featured Project */}
             <Tilt key="compact" rotationFactor={2} isRevese>
-              <div className="border border-gray-700 rounded-xl overflow-hidden h-[450px]">
+              <motion.div
+                key={featuredProject.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.3 }}
+                className="border border-gray-700 rounded-xl overflow-hidden "
+              >
                 <div className="grid grid-cols-1 md:grid-cols-2">
-                  <div className="relative aspect-video md:aspect-auto h-[450px]">
+                  <div className="relative aspect-video md:aspect-auto h-[300px] sm:h-[350px]">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 " />
                     <Image
                       src={
@@ -174,31 +177,31 @@ export default function Home() {
                       alt={featuredProject?.title || "Featured Project"}
                       width={600}
                       height={400}
-                      className="object-cover h-full w-full"
+                      className="object-cover h-full w-full object-top"
                     />
                   </div>
 
                   <div className="p-6 flex flex-col justify-between">
                     <div>
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-                          <Code size={18} />
+                      <div className="flex items-center gap-3 mb-4 ">
+                        <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-gray-700 flex items-center justify-center">
+                          <Code size={25} />
                         </div>
                         <div>
-                          <h3 className="text-lg font-medium">
+                          <h3 className="text-lg md:text-3xl font-medium">
                             {featuredProject?.title}
                           </h3>
-                          <p className="text-sm text-gray-400">
+                          <p className="text-sm md:text-md text-gray-400">
                             Featured Project
                           </p>
                         </div>
                       </div>
 
-                      <p className="text-gray-300 mb-6">
+                      <p className="text-gray-300 mb-6 text-sm md:text-lg">
                         {featuredProject?.description}
                       </p>
 
-                      <div className="flex flex-wrap gap-2 mb-6">
+                      <div className="flex flex-wrap gap-2 mb-6 text-sm md:text-lg">
                         {featuredProject?.technologies
                           ?.slice(0, 5)
                           .map((tech) => (
@@ -219,12 +222,12 @@ export default function Home() {
                     <div className="flex justify-between items-center">
                       <div>
                         <div className="text-sm text-gray-400">Category</div>
-                        <div className="text-sm font-medium capitalize">
+                        <div className="text-sm md:text-lg font-medium capitalize">
                           {featuredProject?.category}
                         </div>
                       </div>
 
-                      <button className="group px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium flex items-center gap-2 w-25 text-ellipsis">
+                      <button className="px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium flex items-center gap-2 w-25 md:w-40 text-ellipsis justify-center">
                         <a
                           href={featuredProject?.link}
                           target="_blank"
@@ -237,12 +240,14 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             </Tilt>
 
             {/* Projects Grid */}
             <div>
-              <div className="flex items-center justify-between">Related</div>
+              <h2 className="text-xl md:text-2xl font-bold tracking-wider ">
+                Related Projects
+              </h2>
               {/* Projects Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8 md:mt-5">
                 {filteredProjects
@@ -252,16 +257,16 @@ export default function Home() {
                   )
                   .slice(0, 3)
                   .map((project) => (
-                    <Tilt key={project.id} rotationFactor={3} isRevese>
+                    <Tilt key={project.id} rotationFactor={5} isRevese>
                       <motion.div
                         key={project.id}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.3 }}
-                        className="border border-gray-700 rounded-xl overflow-hidden group h-[450px]"
+                        className="border border-gray-700 rounded-xl overflow-hidden h-[400px]"
                       >
-                        <div className="relative aspect-video">
+                        <div className="relative  h-[200px]">
                           <Image
                             src={
                               project.image ||
@@ -270,10 +275,9 @@ export default function Home() {
                             alt={project.title || "Project"}
                             width={400}
                             height={300}
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            className="w-full h-full object-cover transition-transform duration-300 "
                           />
                         </div>
-
                         <div className="p-4">
                           <div className="flex justify-between items-start mb-2">
                             <h3 className="font-medium">{project.title}</h3>
@@ -307,17 +311,18 @@ export default function Home() {
                             )}
                           </div>
                         </div>
-
-                        <button className="group px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium flex items-center gap-2 w-25 text-ellipsis">
-                          <a
-                            href={featuredProject?.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Visit
-                          </a>
-                          <ExternalLink size={16} />
-                        </button>
+                        <div className="flex items-center justify-end mx-5">
+                          <button className="flex items-center gap-2 sm:px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium  text-ellipsis w-full justify-center sm:w-fit ">
+                            <a
+                              href={project.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Visit
+                            </a>
+                            <ExternalLink size={16} />
+                          </button>
+                        </div>
                       </motion.div>
                     </Tilt>
                   ))}

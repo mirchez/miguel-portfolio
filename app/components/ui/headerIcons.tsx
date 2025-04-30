@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 export default function HeaderIcons() {
   const pathname = usePathname();
 
-  if (pathname === "/contact" || pathname === "/proyects") {
+  if (pathname === "/contact") {
     return null; // No renderizar iconos en la página de contacto
   }
 
@@ -25,7 +25,7 @@ export default function HeaderIcons() {
         y: -100,
         transition: { duration: 0.3 },
       }}
-      className="absolute top-3 right-1/2 translate-x-1/2 md:right-20 md:top-7 z-50 flex space-x-1 md:space-x-4"
+      className="absolute top-3 right-1/2 translate-x-1/2 xl:right-20 xl:top-7 z-50 flex space-x-1 md:space-x-4 "
     >
       <Link
         href="https://github.com/mirchez"
@@ -33,7 +33,7 @@ export default function HeaderIcons() {
         rel="noopener noreferrer"
         aria-label="GitHub"
       >
-        <Github className="h-7 w-7 lg:w-10 lg:h-10 text-white hover:text-gray-400 transition" />
+        <Github className="h-7 w-7 xl:w-10 xl:h-10 text-white hover:text-gray-400 transition" />
       </Link>
       <Link
         href="https://linkedin.com/in/mirchez"
@@ -41,7 +41,7 @@ export default function HeaderIcons() {
         rel="noopener noreferrer"
         aria-label="LinkedIn"
       >
-        <Linkedin className="h-7 w-7 lg:w-10 lg:h-10 text-white hover:text-gray-400 transition" />
+        <Linkedin className="h-7 w-7 xl:w-10 xl:h-10 text-white hover:text-gray-400 transition" />
       </Link>
     </motion.div>
   );

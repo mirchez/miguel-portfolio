@@ -5,74 +5,74 @@ export const projects: Project[] = [
     id: "22",
     title: "Forever Ecommerce Admin Page",
     description:
-      "Admin Panel for Forever Ecommerce where the admin can update and sea all the products ordered and shipped",
+      "Admin Panel for Forever Ecommerce where the admin can update and sea all the products ordered and shipped.",
     image: "/22-forever-admin.PNG",
     technologies: [
       {
         id: "react",
         name: "React.js",
-        color: { bg: "#E9F3F7", text: "#487CA5" },
+        color: { bg: "#FDF4F7", text: "#D96D8C" },
       },
       {
         id: "typescript",
         name: "TypeScript",
-        color: { bg: "#F6F3F8", text: "#8A67AB" },
+        color: { bg: "#E9F3F7", text: "#2C6CA1" },
       },
       {
         id: "tailwind",
         name: "Tailwind CSS",
-        color: { bg: "#F9F2F5", text: "#B35488" },
+        color: { bg: "#F3F2F7", text: "#6C5B9A" },
       },
       {
         id: "node",
         name: "Node.js",
-        color: { bg: "#EEF3ED", text: "#548164" },
+        color: { bg: "#FFF4E6", text: "#F06529" },
       },
       {
         id: "mongodb",
         name: "MongoDB",
-        color: { bg: "#EEF3ED", text: "#548164" },
+        color: { bg: "#E3F7E9", text: "#5BAF7C" },
       },
       {
         id: "express",
         name: "Express.js",
-        color: { bg: "#FAECEC", text: "#C4554D" },
+        color: { bg: "#F6F3F8", text: "#8A67AB" },
       },
       {
         id: "mongoose",
         name: "Mongoose",
-        color: { bg: "#E3F7E9", text: "#5BAF7C" },
+        color: { bg: "#FAF3DD", text: "#C29343" },
       },
-      { id: "vite", name: "Vite", color: { bg: "#FFF4E6", text: "#D98E2D" } },
+      { id: "vite", name: "Vite", color: { bg: "#F9F2F5", text: "#B35488" } },
       {
         id: "jwt",
         name: "JWT Auth",
-        color: { bg: "#E9F3F7", text: "#2C6CA1" },
+        color: { bg: "#EEF3ED", text: "#548164" },
       },
       {
         id: "react-query",
         name: "React Query",
-        color: { bg: "#F3F2F7", text: "#6C5B9A" },
+        color: { bg: "#FAECEC", text: "#C4554D" },
       },
       {
         id: "rest-api",
         name: "RESTful APIs",
-        color: { bg: "#F3EEEE", text: "#976D57" },
+        color: { bg: "#E9F3F7", text: "#487CA5" },
       },
       {
         id: "bcrypt",
         name: "bcrypt",
-        color: { bg: "#F0F0F0", text: "#7A7A7A" },
+        color: { bg: "#F3EEEE", text: "#976D57" },
       },
       {
         id: "react-hook-form",
         name: "React Hook Form",
-        color: { bg: "#FDF4F7", text: "#D96D8C" },
+        color: { bg: "#F0F0F0", text: "#7A7A7A" },
       },
       {
         id: "postman",
         name: "Postman",
-        color: { bg: "#FFF4E6", text: "#F06529" },
+        color: { bg: "#FFF4E6", text: "#D98E2D" },
       },
       {
         id: "cloudinary",
@@ -82,12 +82,12 @@ export const projects: Project[] = [
       {
         id: "html-css-js",
         name: "HTML/CSS/JS",
-        color: { bg: "#FAECEC", text: "#C4554D" },
+        color: { bg: "#FAF3DD", text: "#C29343" },
       },
       {
         id: "javascript",
         name: "JavaScript",
-        color: { bg: "#FAF3DD", text: "#C29343" },
+        color: { bg: "#FAECEC", text: "#C4554D" },
       },
     ],
     category: "fullstack",
@@ -103,68 +103,68 @@ export const projects: Project[] = [
       {
         id: "react",
         name: "React.js",
-        color: { bg: "#E9F3F7", text: "#487CA5" },
+        color: { bg: "#FDF4F7", text: "#D96D8C" },
       },
       {
         id: "typescript",
         name: "TypeScript",
-        color: { bg: "#F6F3F8", text: "#8A67AB" },
+        color: { bg: "#E9F3F7", text: "#2C6CA1" },
       },
       {
         id: "tailwind",
         name: "Tailwind CSS",
-        color: { bg: "#F9F2F5", text: "#B35488" },
+        color: { bg: "#F3F2F7", text: "#6C5B9A" },
       },
       {
         id: "node",
         name: "Node.js",
-        color: { bg: "#EEF3ED", text: "#548164" },
+        color: { bg: "#FFF4E6", text: "#F06529" },
       },
       {
         id: "mongodb",
         name: "MongoDB",
-        color: { bg: "#EEF3ED", text: "#548164" },
+        color: { bg: "#E3F7E9", text: "#5BAF7C" },
       },
       {
         id: "express",
         name: "Express.js",
-        color: { bg: "#FAECEC", text: "#C4554D" },
+        color: { bg: "#F6F3F8", text: "#8A67AB" },
       },
       {
         id: "mongoose",
         name: "Mongoose",
-        color: { bg: "#E3F7E9", text: "#5BAF7C" },
+        color: { bg: "#FAF3DD", text: "#C29343" },
       },
-      { id: "vite", name: "Vite", color: { bg: "#FFF4E6", text: "#D98E2D" } },
+      { id: "vite", name: "Vite", color: { bg: "#F9F2F5", text: "#B35488" } },
       {
         id: "jwt",
         name: "JWT Auth",
-        color: { bg: "#E9F3F7", text: "#2C6CA1" },
+        color: { bg: "#EEF3ED", text: "#548164" },
       },
       {
         id: "react-query",
         name: "React Query",
-        color: { bg: "#F3F2F7", text: "#6C5B9A" },
+        color: { bg: "#FAECEC", text: "#C4554D" },
       },
       {
         id: "rest-api",
         name: "RESTful APIs",
-        color: { bg: "#F3EEEE", text: "#976D57" },
+        color: { bg: "#E9F3F7", text: "#487CA5" },
       },
       {
         id: "bcrypt",
         name: "bcrypt",
-        color: { bg: "#F0F0F0", text: "#7A7A7A" },
+        color: { bg: "#F3EEEE", text: "#976D57" },
       },
       {
         id: "react-hook-form",
         name: "React Hook Form",
-        color: { bg: "#FDF4F7", text: "#D96D8C" },
+        color: { bg: "#F0F0F0", text: "#7A7A7A" },
       },
       {
         id: "postman",
         name: "Postman",
-        color: { bg: "#FFF4E6", text: "#F06529" },
+        color: { bg: "#FFF4E6", text: "#D98E2D" },
       },
       {
         id: "cloudinary",
@@ -174,12 +174,12 @@ export const projects: Project[] = [
       {
         id: "html-css-js",
         name: "HTML/CSS/JS",
-        color: { bg: "#FAECEC", text: "#C4554D" },
+        color: { bg: "#FAF3DD", text: "#C29343" },
       },
       {
         id: "javascript",
         name: "JavaScript",
-        color: { bg: "#FAF3DD", text: "#C29343" },
+        color: { bg: "#FAECEC", text: "#C4554D" },
       },
     ],
     category: "fullstack",
@@ -203,13 +203,13 @@ export const projects: Project[] = [
   {
     id: "19",
     title: "Heroes SPA",
-    description: "Shows especific detalis about DC or Marvel heroes",
+    description: "Shows especific detalis about DC or Marvel heroes.",
     image: "/20-heroes-spa.PNG",
     technologies: [
       {
         id: "react",
         name: "React.js",
-        color: { bg: "#E9F3F7", text: "#487CA5" },
+        color: { bg: "#FDF4F7", text: "#D96D8C" },
       },
       {
         id: "rest-api",
@@ -239,7 +239,7 @@ export const projects: Project[] = [
       {
         id: "react",
         name: "React.js",
-        color: { bg: "#E9F3F7", text: "#487CA5" },
+        color: { bg: "#FDF4F7", text: "#D96D8C" },
       },
       {
         id: "rest-api",
@@ -264,7 +264,7 @@ export const projects: Project[] = [
     id: "17",
     title: "GuitarLA",
     description:
-      "GuitarLA is the place where you will find and buy premium and high quality guitars",
+      "GuitarLA is the place where you will find and buy premium and high quality guitars.",
     image: "/17-GuiatarLA.PNG",
     technologies: [
       {
@@ -280,7 +280,7 @@ export const projects: Project[] = [
       {
         id: "react",
         name: "React.js",
-        color: { bg: "#E9F3F7", text: "#487CA5" },
+        color: { bg: "#FDF4F7", text: "#D96D8C" },
       },
     ],
     category: "ecommerce",
