@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "@/data/projects";
@@ -10,12 +10,12 @@ import {
   SquareArrowLeft,
   Briefcase,
   Code,
-  BarChart3,
   ChevronRight,
 } from "lucide-react";
 import { validateProjects } from "@/lib/utils";
 import { Particles } from "@/components/ui/particle";
 import Link from "next/link";
+import { Tilt } from "@/components/ui/tilt";
 
 // Validate projects to prevent errors
 const validatedProjects = validateProjects(projects);
@@ -92,7 +92,14 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#121219] text-white overflow-x-hidden">
+    <div className="min-h-screen bg-black text-white overflow-x-hidden">
+      <Particles
+        className="absolute inset-0"
+        quantity={150}
+        ease={10}
+        color="#ffffff"
+        refresh
+      />
       <div className="relative z-10">
         {/* Search Bar */}
         <header className="flex items-center justify-center p-6 pb-0">
@@ -102,8 +109,8 @@ export default function Home() {
             </div>
             <input
               type="text"
-              placeholder="Buscar proyectos, tecnologías..."
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              placeholder="Search projects, technologies..."
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-gray-600"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -113,37 +120,40 @@ export default function Home() {
         <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-6 p-6">
           {/* Sidebar */}
           <div className="hidden lg:flex flex-col gap-6">
-            <div className="bg-gray-800/50 rounded-xl p-4 flex flex-col gap-4">
-              <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700/50 cursor-pointer">
-                <Briefcase size={18} className="text-gray-400" />
-                <span>Todos los proyectos</span>
-              </div>
+            <div className="border border-gray-700 rounded-xl p-4 flex flex-col gap-4">
               <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700/50 cursor-pointer">
                 <SquareArrowLeft size={18} className="text-gray-400" />
                 <Link href="/">
                   <span>Back To Home</span>
                 </Link>
               </div>
+              <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700/50 cursor-pointer ">
+                <Briefcase size={18} className="text-gray-400" />
+                <span>All projects</span>
+              </div>
             </div>
 
-            <div className="bg-gray-800/50 rounded-xl p-4">
+            <div className="border border-gray-700 rounded-xl p-4">
               <h3 className="text-sm font-medium text-gray-400 mb-3">
-                Categorías
+                Categories
               </h3>
               <div className="flex flex-col gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={`text-left p-2 rounded-lg text-sm ${
-                      selectedCategory === category
-                        ? "bg-purple-500/20 text-purple-400"
-                        : "hover:bg-gray-700/50"
-                    }`}
-                  >
-                    <span className="capitalize">{category}</span>
-                  </button>
-                ))}
+                {categories.map(
+                  (category) =>
+                    category !== "all" && (
+                      <button
+                        key={category}
+                        onClick={() => setSelectedCategory(category)}
+                        className={`text-left p-2 rounded-lg text-sm ${
+                          selectedCategory === category
+                            ? "bg-gray-700 text-white"
+                            : "hover:bg-gray-700/50"
+                        }`}
+                      >
+                        <span className="capitalize">{category}</span>
+                      </button>
+                    )
+                )}
               </div>
             </div>
           </div>
@@ -151,146 +161,105 @@ export default function Home() {
           {/* Main Content */}
           <div className="flex flex-col gap-6">
             {/* Featured Project */}
-            <div className="bg-gray-800/50 rounded-xl overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2">
-                <div className="relative aspect-video md:aspect-auto">
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
-                  <Image
-                    src={
-                      featuredProject?.image ||
-                      "/placeholder.svg?height=400&width=600"
-                    }
-                    alt={featuredProject?.title || "Featured Project"}
-                    width={600}
-                    height={400}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                <div className="p-6 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
-                        <Code size={18} />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-medium">
-                          {featuredProject?.title}
-                        </h3>
-                        <p className="text-sm text-gray-400">
-                          Proyecto Destacado
-                        </p>
-                      </div>
-                    </div>
-
-                    <p className="text-gray-300 mb-6">
-                      {featuredProject?.description}
-                    </p>
-
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {featuredProject?.technologies
-                        ?.slice(0, 5)
-                        .map((tech) => (
-                          <span
-                            key={`${featuredProject.id}-${tech.id}`}
-                            className="text-xs px-3 py-1 rounded-full"
-                            style={{
-                              backgroundColor: tech.color?.bg || "#2d2d3a",
-                              color: tech.color?.text || "#a8a8b3",
-                            }}
-                          >
-                            {tech.name}
-                          </span>
-                        ))}
-                    </div>
+            <Tilt key="compact" rotationFactor={2} isRevese>
+              <div className="border border-gray-700 rounded-xl overflow-hidden h-[450px]">
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                  <div className="relative aspect-video md:aspect-auto h-[450px]">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10 " />
+                    <Image
+                      src={
+                        featuredProject?.image ||
+                        "/placeholder.svg?height=400&width=600"
+                      }
+                      alt={featuredProject?.title || "Featured Project"}
+                      width={600}
+                      height={400}
+                      className="object-cover h-full w-full"
+                    />
                   </div>
 
-                  <div className="flex justify-between items-center">
+                  <div className="p-6 flex flex-col justify-between">
                     <div>
-                      <div className="text-sm text-gray-400">Categoría</div>
-                      <div className="text-sm font-medium capitalize">
-                        {featuredProject?.category}
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
+                          <Code size={18} />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-medium">
+                            {featuredProject?.title}
+                          </h3>
+                          <p className="text-sm text-gray-400">
+                            Featured Project
+                          </p>
+                        </div>
+                      </div>
+
+                      <p className="text-gray-300 mb-6">
+                        {featuredProject?.description}
+                      </p>
+
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {featuredProject?.technologies
+                          ?.slice(0, 5)
+                          .map((tech) => (
+                            <span
+                              key={`${featuredProject.id}-${tech.id}`}
+                              className="text-xs px-3 py-1 rounded-full"
+                              style={{
+                                backgroundColor: tech.color?.bg || "#2d2d3a",
+                                color: tech.color?.text || "#a8a8b3",
+                              }}
+                            >
+                              {tech.name}
+                            </span>
+                          ))}
                       </div>
                     </div>
 
-                    <a
-                      href={featuredProject?.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center gap-2 hover:opacity-90 transition-opacity"
-                    >
-                      <span>Ver Proyecto</span>
-                      <ExternalLink size={16} />
-                    </a>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <div className="text-sm text-gray-400">Category</div>
+                        <div className="text-sm font-medium capitalize">
+                          {featuredProject?.category}
+                        </div>
+                      </div>
+
+                      <button className="group px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium flex items-center gap-2 w-25 text-ellipsis">
+                        <a
+                          href={featuredProject?.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Visit
+                        </a>
+                        <ExternalLink size={16} />
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </Tilt>
 
             {/* Projects Grid */}
             <div>
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-bold">Top Proyectos</h2>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => setActiveTab("all")}
-                    className={`px-3 py-1 text-sm rounded-lg ${
-                      activeTab === "all"
-                        ? "bg-purple-500/20 text-purple-400"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    Todos
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("fullstack")}
-                    className={`px-3 py-1 text-sm rounded-lg ${
-                      activeTab === "fullstack"
-                        ? "bg-purple-500/20 text-purple-400"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    Fullstack
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("ecommerce")}
-                    className={`px-3 py-1 text-sm rounded-lg ${
-                      activeTab === "ecommerce"
-                        ? "bg-purple-500/20 text-purple-400"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    Ecommerce
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("external-api")}
-                    className={`px-3 py-1 text-sm rounded-lg ${
-                      activeTab === "external-api"
-                        ? "bg-purple-500/20 text-purple-400"
-                        : "text-gray-400"
-                    }`}
-                  >
-                    APIs
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4">
-                <AnimatePresence mode="wait">
-                  {filteredProjects
-                    .filter(
-                      (project) =>
-                        activeTab === "all" || project.category === activeTab
-                    )
-                    .slice(0, 6)
-                    .map((project) => (
+              <div className="flex items-center justify-between">Related</div>
+              {/* Projects Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8 md:mt-5">
+                {filteredProjects
+                  .filter(
+                    (project) =>
+                      activeTab === "all" || project.category === activeTab
+                  )
+                  .slice(0, 3)
+                  .map((project) => (
+                    <Tilt key={project.id} rotationFactor={3} isRevese>
                       <motion.div
                         key={project.id}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         transition={{ duration: 0.3 }}
-                        className="bg-gray-800/50 rounded-xl overflow-hidden group"
+                        className="border border-gray-700 rounded-xl overflow-hidden group h-[450px]"
                       >
                         <div className="relative aspect-video">
                           <Image
@@ -303,18 +272,6 @@ export default function Home() {
                             height={300}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <a
-                              href={project.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-sm font-medium flex items-center gap-1 hover:underline"
-                            >
-                              <span>Ver proyecto</span>
-                              <ChevronRight size={14} />
-                            </a>
-                          </div>
                         </div>
 
                         <div className="p-4">
@@ -350,15 +307,26 @@ export default function Home() {
                             )}
                           </div>
                         </div>
+
+                        <button className="group px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium flex items-center gap-2 w-25 text-ellipsis">
+                          <a
+                            href={featuredProject?.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            Visit
+                          </a>
+                          <ExternalLink size={16} />
+                        </button>
                       </motion.div>
-                    ))}
-                </AnimatePresence>
+                    </Tilt>
+                  ))}
               </div>
 
               {filteredProjects.length > 6 && (
                 <div className="mt-6 text-center">
                   <button className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm">
-                    Ver más proyectos
+                    View more projects
                   </button>
                 </div>
               )}
