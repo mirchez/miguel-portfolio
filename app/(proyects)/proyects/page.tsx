@@ -4,13 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { projects } from "@/data/projects";
-import {
-  Search,
-  ExternalLink,
-  SquareArrowLeft,
-  Briefcase,
-  Code,
-} from "lucide-react";
+import { Search, ExternalLink, SquareArrowLeft, Code } from "lucide-react";
 import { validateProjects } from "@/lib/utils";
 import { Particles } from "@/components/ui/particle";
 import Link from "next/link";
@@ -38,13 +32,7 @@ allTechnologies.forEach((tech) => {
   techCounts.set(tech, (techCounts.get(tech) || 0) + 1);
 });
 
-// Sort technologies by count
-const topTechnologies = Array.from(techCounts.entries())
-  .sort((a, b) => b[1] - a[1])
-  .slice(0, 5)
-  .map(([name, count]) => ({ name, count }));
-
-export default function Home() {
+export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState(validatedProjects);
@@ -117,20 +105,64 @@ export default function Home() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-6 p-6">
+          {/* Categories for Mobile */}
+
+          <div className="flex gap-2 lg:hidden items-center justify-center">
+            <Link href="/">
+              <div className="text-sm flex items-center gap-1 rounded-lg p-2 hover:bg-purple-500/20 cursor-pointer ">
+                <SquareArrowLeft size={18} className="text-gray-400" />
+                <span>Back To Home</span>
+              </div>
+            </Link>
+            <button
+              onClick={() => setActiveTab("all")}
+              className={`px-3 py-1 text-sm rounded-sm ${
+                activeTab === "all"
+                  ? "bg-purple-500/20 text-purple-400"
+                  : "text-gray-400"
+              }`}
+            >
+              All
+            </button>
+            <button
+              onClick={() => setActiveTab("fullstack")}
+              className={`px-3 py-1 text-sm rounded-sm ${
+                activeTab === "fullstack"
+                  ? "bg-purple-500/20 text-purple-400"
+                  : "text-gray-400"
+              }`}
+            >
+              Fullstack
+            </button>
+            <button
+              onClick={() => setActiveTab("ecommerce")}
+              className={`px-3 py-1 text-sm rounded-sm ${
+                activeTab === "ecommerce"
+                  ? "bg-purple-500/20 text-purple-400"
+                  : "text-gray-400"
+              }`}
+            >
+              Ecommerce
+            </button>
+            <button
+              onClick={() => setActiveTab("external-api")}
+              className={`px-3 py-1 text-sm rounded-sm ${
+                activeTab === "external-api"
+                  ? "bg-purple-500/20 text-purple-400"
+                  : "text-gray-400"
+              }`}
+            >
+              APIs
+            </button>
+          </div>
           {/* Sidebar */}
           <div className="hidden lg:flex flex-col gap-6">
-            <div className="border border-gray-700 rounded-xl p-4 flex flex-col gap-4">
-              <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700/50 cursor-pointer">
+            <Link href="/">
+              <div className="flex items-center gap-3 rounded-lg p-4 hover:bg-purple-500/20 cursor-pointer border border-gray-700">
                 <SquareArrowLeft size={18} className="text-gray-400" />
-                <Link href="/">
-                  <span>Back To Home</span>
-                </Link>
+                <span>Back To Home</span>
               </div>
-              {/* <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-700/50 cursor-pointer ">
-                <Briefcase size={18} className="text-gray-400" />
-                <span>All projects</span>
-              </div> */}
-            </div>
+            </Link>
 
             <div className="border border-gray-700 rounded-xl p-4">
               <h3 className="text-sm font-medium text-gray-400 mb-3">
@@ -143,8 +175,8 @@ export default function Home() {
                     onClick={() => setSelectedCategory(category)}
                     className={`text-left p-2 rounded-lg text-sm ${
                       selectedCategory === category
-                        ? "bg-gray-700 text-white"
-                        : "hover:bg-gray-700/50"
+                        ? "bg-purple-700/20 text-purple-400"
+                        : "hover:bg-purple-500/20 "
                     }`}
                   >
                     <span className="capitalize">{category}</span>
@@ -184,7 +216,7 @@ export default function Home() {
                   <div className="p-6 flex flex-col justify-between">
                     <div>
                       <div className="flex items-center gap-3 mb-4 ">
-                        <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-gray-700 flex items-center justify-center">
+                        <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-gray-700 flex items-center justify-center hover:bg-purple-500/20 transition-all duration-200 cursor-pointer">
                           <Code size={25} />
                         </div>
                         <div>
@@ -227,16 +259,17 @@ export default function Home() {
                         </div>
                       </div>
 
-                      <button className="px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium flex items-center gap-2 w-25 md:w-40 text-ellipsis justify-center">
-                        <a
-                          href={featuredProject?.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                      <a
+                        href={featuredProject.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-3 sm:px-6 bg-gray-900 text-white rounded-lg hover:bg-purple-500/20 font-medium"
+                      >
+                        <button className="flex items-center gap-2 font-medium text-ellipsis w-full justify-center ">
                           Visit
-                        </a>
-                        <ExternalLink size={16} />
-                      </button>
+                          <ExternalLink size={16} />
+                        </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -246,7 +279,7 @@ export default function Home() {
             {/* Projects Grid */}
             <div>
               <h2 className="text-xl md:text-2xl font-bold tracking-wider ">
-                Related Projects
+                {activeTab} Projects
               </h2>
               {/* Projects Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8 md:mt-5">
@@ -311,17 +344,18 @@ export default function Home() {
                             )}
                           </div>
                         </div>
-                        <div className="flex items-center justify-end mx-5">
-                          <button className="flex items-center gap-2 sm:px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium  text-ellipsis w-full justify-center sm:w-fit ">
-                            <a
-                              href={project.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
+                        <div className="flex items-center justify-center mx-5">
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full"
+                          >
+                            <button className="flex items-center gap-2 sm:px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-purple-500/20  transition-all duration-200 font-medium  text-ellipsis w-full justify-center sm:w-fit ">
                               Visit
-                            </a>
-                            <ExternalLink size={16} />
-                          </button>
+                              <ExternalLink size={16} />
+                            </button>
+                          </a>
                         </div>
                       </motion.div>
                     </Tilt>
@@ -330,7 +364,7 @@ export default function Home() {
 
               {filteredProjects.length > 6 && (
                 <div className="mt-6 text-center">
-                  <button className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg text-sm">
+                  <button className="px-4 py-2 bg-gray-800 hover:bg-purple-500/20 rounded-lg text-sm">
                     View more projects
                   </button>
                 </div>

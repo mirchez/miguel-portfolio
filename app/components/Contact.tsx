@@ -57,6 +57,9 @@ export default function ContactPage() {
     window.location.href = link;
   };
 
+  const iconsClass: string =
+    "w-full bg-neutral-800 text-white flex items-center justify-center gap-2 py-3 rounded-md hover:bg-purple-600/20 transition-colors";
+
   return (
     <div className="w-full min-h-screen flex items-center justify-center px-4 py-10 ">
       <Tilt key="compact" rotationFactor={1} isRevese>
@@ -129,7 +132,7 @@ export default function ContactPage() {
               href="https://github.com/mirchez"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-neutral-800 text-white flex items-center justify-center gap-2 py-3 rounded-md hover:bg-neutral-700 transition-colors"
+              className={iconsClass}
             >
               <Github size={18} />
               GitHub
@@ -139,16 +142,13 @@ export default function ContactPage() {
               href="https://Linkedin.com/in/mirchez"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-neutral-800 text-white flex items-center justify-center gap-2 py-3 rounded-md hover:bg-neutral-700 transition-colors"
+              className={iconsClass}
             >
               <Linkedin size={18} />
               Linkedin
             </a>
 
-            <button
-              onClick={handleGmailClick}
-              className="w-full bg-neutral-800 text-white flex items-center justify-center gap-2 py-3 rounded-md hover:bg-neutral-700 transition-colors"
-            >
+            <button onClick={handleGmailClick} className={iconsClass}>
               <Mail size={18} />
               Gmail
             </button>

@@ -19,7 +19,7 @@ export const CardButtons = () => {
           initialOpacity={0}
         >
           <Link href="/proyects" passHref>
-            <button className="group px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-all duration-200 font-medium flex items-center gap-2 w-full text-ellipsis">
+            <button className="group px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-purple-700/20 transition-all duration-200 font-medium flex items-center gap-2 w-full text-ellipsis">
               <Typewriter
                 words={["Explore Proyects", "20+ Deployed"]}
                 loop
