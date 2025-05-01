@@ -140,7 +140,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <div className="min-h-screen text-white overflow-x-hidden pb-15 sm:pb-2">
+    <div className="min-h-screen text-white overflow-x-hidden pb-15 sm:pb-2 ">
       <Particles
         className="absolute inset-0 hidden lg:block"
         quantity={150}
@@ -158,7 +158,7 @@ export default function Projects() {
             <input
               type="text"
               placeholder="Search projects, technologies..."
-              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg py-3 sm:py-4 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full bg-gray-800/30 border border-gray-700 rounded-lg py-3 sm:py-4 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-gray-600"
               value={searchQuery}
               onChange={handleSearchChange}
             />
@@ -169,7 +169,7 @@ export default function Projects() {
           {/* Categories for Mobile */}
           <div className="flex flex-wrap gap-2 lg:hidden items-center justify-center ">
             <Link href="/">
-              <div className="text-sm flex items-center gap-1 rounded-lg p-2 hover:bg-purple-500/20 cursor-pointer ">
+              <div className="text-sm flex items-center gap-1 rounded-lg p-2  hover:bg-purple-500/20 cursor-pointer ">
                 <SquareArrowLeft size={18} className="text-gray-400" />
                 <span> Home</span>
               </div>
@@ -218,14 +218,14 @@ export default function Projects() {
           {/* Sidebar */}
           <div className="hidden lg:flex flex-col gap-6">
             <Link href="/">
-              <div className="flex items-center gap-3 rounded-lg p-4 hover:bg-purple-500/20 cursor-pointer border border-gray-700">
+              <div className="flex items-center gap-3 bg-gray-800/30 rounded-lg p-4 hover:bg-purple-500/20 cursor-pointer border border-gray-700">
                 <SquareArrowLeft size={18} className="text-gray-400" />
                 <span>Back To Home</span>
               </div>
             </Link>
 
             {/* Categories */}
-            <div className="border border-gray-700 rounded-xl p-4">
+            <div className="border border-gray-700 rounded-xl p-4  bg-gray-800/30">
               <h3 className="text-sm font-medium text-gray-400 mb-3">
                 Categories
               </h3>
@@ -257,7 +257,7 @@ export default function Projects() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="p-3 md:p-6 border border-gray-700 rounded-xl overflow-hidden"
+                  className="p-3 md:p-6  bg-gray-800/30 border border-gray-700 rounded-xl overflow-hidden"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 sm:gap-6">
                     <a
@@ -363,7 +363,7 @@ export default function Projects() {
                     : `${activeTab} Projects`}
                 </h2>
                 {/* Projects Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8 md:mt-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8 md:mt-5 ">
                   <AnimatePresence>
                     {filteredProjects
                       .filter(
@@ -378,7 +378,7 @@ export default function Projects() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: 20 }}
                             transition={{ duration: 0.3 }}
-                            className="p-3 md:p-6 border border-gray-700 rounded-xl overflow-hidden h-[500px]"
+                            className="p-3 md:p-6 border bg-gray-800/30 border-gray-700 rounded-xl overflow-hidden h-[450px] md:h-[500px]"
                           >
                             <div className="flex flex-col gap-3 h-full">
                               <div className="relative h-[200px]">
@@ -393,7 +393,7 @@ export default function Projects() {
                                   priority={
                                     project.id === "21" || project.id === "20"
                                   }
-                                  className="w-full h-full object-cover transition-transform duration-300 rounded-xl "
+                                  className="w-full h-full object-cover transition-transform duration-300 rounded-xl"
                                 />
                               </div>
                               <div className="pt-6 px-0 flex flex-col justify-between h-full">
@@ -437,7 +437,7 @@ export default function Projects() {
                                   </div>
                                 </div>
 
-                                <div className="flex justify-end mt-auto">
+                                <div className="flex justify-end">
                                   <a
                                     href={project.link}
                                     target="_blank"
