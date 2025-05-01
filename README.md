@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Miguel Miranda Portfolio
 
-## Getting Started
+[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://miguel-miranda-portfolio.vercel.app/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-38B2AC)](https://tailwindcss.com/)
 
-First, run the development server:
+My personal portfolio built with modern technologies and web development best practices.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+🌐 [View Demo](https://miguel-miranda-portfolio.vercel.app/)
+
+## 🚀 Features
+
+- ⚡ **Optimized Performance** with Next.js 14 and Server Components
+- 🎨 **Responsive Design** using TailwindCSS
+- 🔄 **Smooth Animations** with Framer Motion
+- 🌓 **Modern Design** with glassmorphism effects and particles
+- 📧 **Functional Contact Form** with validation and notifications
+- 🔍 **Search and Filter** projects with debouncing
+- 📱 **Fully Responsive** across all devices
+
+## 🛠️ Technologies Used
+
+- **Framework**: Next.js 14
+- **Language**: TypeScript
+- **Styling**: TailwindCSS
+- **Animations**: Framer Motion
+- **Forms**: React Hook Form + Zod
+- **Email**: Nodemailer
+- **UI/UX**:
+  - React Hot Toast
+  - Lucide Icons
+  - Particles
+  - Custom Tilt Effect
+
+## 📦 Main Dependencies
+
+```json
+{
+  "dependencies": {
+    "next": "14.x",
+    "react": "18.x",
+    "framer-motion": "^10.x",
+    "tailwindcss": "^3.x",
+    "react-hook-form": "^7.x",
+    "zod": "^3.x",
+    "nodemailer": "^6.x",
+    "react-hot-toast": "^2.x",
+    "lucide-react": "^0.x",
+    "lodash": "^4.x"
+  }
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Installation and Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. **Clone the repository**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   git clone <your-repository>
+   cd miguel-portfolio
+   ```
 
-## Learn More
+2. **Install dependencies**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   pnpm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. **Set up environment variables**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   Create a `.env.local` file in the project root:
 
-## Deploy on Vercel
+   ```env
+   EMAIL_USER=your-email@gmail.com
+   EMAIL_PASSWORD=your-app-password
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   Note: For Gmail, you need to use an "App Password"
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Start development server**
+
+   ```bash
+   pnpm dev
+   ```
+
+5. **Build for production**
+   ```bash
+   pnpm build
+   pnpm start
+   ```
+
+## 📁 Project Structure
+
+```
+miguel-portfolio/
+├── app/
+│   ├── components/     # Reusable components
+│   ├── actions/        # Server Actions
+│   ├── lib/           # Utilities and helpers
+│   └── data/          # Static data (projects)
+├── public/            # Static files
+└── styles/           # Global styles
+```
+
+## 🔍 Detailed Features
+
+### Projects System
+
+- Category filtering
+- Debounced search
+- Technology visualization
+- Rotating featured project
+
+### Contact Form
+
+- Zod validation
+- Toast notifications
+- Nodemailer email sending
+- Error handling
+
+### Animations and UI
+
+- Custom hover effects
+- Entry/exit animations
+- Background particles effect
+- Card tilt effect
+
+## 📱 Responsive Design
+
+The portfolio is optimized for:
+
+- 📱 Mobile (< 640px)
+- 📱 Tablet (640px - 1024px)
+- 💻 Desktop (> 1024px)
+
+## 🤝 Contributing
+
+Contributions are welcome. Please open an issue first to discuss what you would like to change.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+**Miguel Miranda**
+
+- Portfolio: [miguel-miranda-portfolio.vercel.app](https://miguel-miranda-portfolio.vercel.app/)
+- GitHub: [@mirchez](https://github.com/mirchez)
+- LinkedIn: [Miguel Miranda](https://linkedin.com/in/mirchez)
+
+## 🌟 Key Features
+
+- **Modern Tech Stack**: Built with Next.js 14, TypeScript, and TailwindCSS
+- **Performance**: Optimized with Server Components and dynamic imports
+- **User Experience**: Smooth animations and intuitive interface
+- **Maintainability**: Clean code structure and TypeScript integration
+- **Accessibility**: Semantic HTML and keyboard navigation
+- **SEO**: Meta tags and optimized content structure
+- **Security**: Environment variables and secure form handling
