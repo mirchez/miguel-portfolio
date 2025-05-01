@@ -37,4 +37,10 @@ export const CATEGORIES = [
     icon: "🛠️",
     mobileIcon: "ri-settings-5-fill",
   },
+  {
+    id: "game",
+    name: "Games",
+    icon: "🎮",
+    mobileIcon: "ri-gamepad-fill",
+  },
 ] as const;

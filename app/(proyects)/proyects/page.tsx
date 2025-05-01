@@ -26,7 +26,7 @@ const allTechnologies = validatedProjects.flatMap(
       ?.map((tech) => tech.name)
       .filter((name): name is string => name !== undefined) || []
 );
-const uniqueTechnologies = [...new Set(allTechnologies)];
+
 const techCounts = new Map<string, number>();
 allTechnologies.forEach((tech) => {
   techCounts.set(tech, (techCounts.get(tech) || 0) + 1);
@@ -73,7 +73,7 @@ export default function Projects() {
     const interval = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * validatedProjects.length);
       setFeaturedProject(validatedProjects[randomIndex]);
-    }, 100000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
@@ -197,6 +197,7 @@ export default function Projects() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 1 }}
                     className="p-3 md:p-6 border border-gray-700 rounded-xl overflow-hidden"
                   >
                     <div className="grid grid-cols-1 md:grid-cols-2 sm:gap-6">
@@ -242,7 +243,7 @@ export default function Projects() {
 
                           <div className="flex flex-wrap gap-2 mb-6 text-sm md:text-lg">
                             {featuredProject?.technologies
-                              ?.slice(0, 5)
+                              ?.slice(0, 3)
                               .map((tech) => (
                                 <span
                                   key={`${featuredProject.id}-${tech.id}`}
@@ -307,7 +308,6 @@ export default function Projects() {
                       (project) =>
                         activeTab === "all" || project.category === activeTab
                     )
-                    .slice(0, 3)
                     .map((project) => (
                       <Tilt key={project.id} rotationFactor={5} isRevese>
                         <motion.div
@@ -347,7 +347,7 @@ export default function Projects() {
                                 </p>
                                 <div className="flex flex-wrap gap-1 mt-2">
                                   {project.technologies
-                                    ?.slice(0, 6)
+                                    ?.slice(0, 3)
                                     .map((tech) => (
                                       <span
                                         key={`${project.id}-${tech.id}`}
@@ -390,14 +390,6 @@ export default function Projects() {
                       </Tilt>
                     ))}
                 </div>
-
-                {filteredProjects.length > 6 && (
-                  <div className="mt-6 text-center">
-                    <button className="px-4 py-2 bg-gray-800 hover:bg-purple-500/20 rounded-lg text-sm">
-                      View more projects
-                    </button>
-                  </div>
-                )}
               </motion.div>
             </AnimatePresence>
           </div>

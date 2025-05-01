@@ -1,32 +1,32 @@
-export type Technology = {
+interface Technology {
   id: string;
   name: string;
-  color: { bg: string; text: string };
-};
+  color: {
+    bg: string;
+    text: string;
+  };
+}
 
-// export type Project = {
-//   id: string;
-//   title: string;
-//   description: string;
-//   image: string;
-//   technologies: Technology[];
-//   category: string;
-//   link: string;
-// };
+type ProjectCategory =
+  | "fullstack"
+  | "ecommerce"
+  | "social"
+  | "external-api"
+  | "health"
+  | "productivity"
+  | "finance"
+  | "all"
+  | "game";
 
 export interface Project {
-  id?: string;
-  title?: string;
-  description?: string;
-  image?: string;
-  technologies?: {
-    id?: string;
-    name?: string;
-    color?: {
-      bg?: string;
-      text?: string;
-    };
-  }[];
-  category?: string;
-  link?: string;
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  technologies: Technology[];
+  category: ProjectCategory;
+  link: string;
 }
+
+// Exportamos también la interfaz Technology por si se necesita en otro lugar
+export type { Technology };
