@@ -101,7 +101,7 @@ export default function ContactPage() {
               transition: { type: "spring", stiffness: 100, damping: 15 },
             }}
             exit={{ opacity: 0, y: 50 }}
-            className="sm:border sm:border-white/15 rounded-2xl w-full p-2 sm:p-8 flex flex-col gap-6"
+            className="bg-gray-800/30 sm:border sm:border-white/15 rounded-2xl w-full p-2 sm:p-8 flex flex-col gap-6"
           >
             <h1 className="text-3xl font-bold text-center text-white">
               Contact Me
