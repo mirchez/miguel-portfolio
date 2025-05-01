@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import HeaderIcons from "@/components/ui/headerIcons"; // o la ruta correcta si la pones en /components/ui
+import HeaderIcons from "@/components/ui/headerIcons"; // or the correct path if placed in /components/ui
 import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Miguel Miranda | Portfolio",
   description:
-    "Portafolio showing personal web developer named Miguel Miranda proyects. Uses next.js intenting to show every proyects he has worked on and built",
+    "Personal portfolio showcasing Miguel Miranda's web development projects. Built with Next.js to display all projects and work experience.",
 };
 
 export default function RootLayout({

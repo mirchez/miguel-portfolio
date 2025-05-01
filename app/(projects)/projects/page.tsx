@@ -15,6 +15,10 @@ import debounce from "lodash/debounce";
 // Validate projects to prevent errors
 const validatedProjects = validateProjects(projects);
 
+// Get the last 3 projects for featured section
+const lastThreeProjects = validatedProjects.slice(0, 3);
+console.log({ lastThreeProjects });
+
 // Get unique categories
 const categories = [
   "all",
@@ -39,7 +43,7 @@ export default function Projects() {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState(validatedProjects);
-  const [featuredProject, setFeaturedProject] = useState(validatedProjects[0]);
+  const [currentFeaturedIndex, setCurrentFeaturedIndex] = useState(0);
 
   const [activeTab, setActiveTab] = useState("all");
 
@@ -47,7 +51,7 @@ export default function Projects() {
   const debouncedSearch = useCallback(
     debounce((query: string) => {
       setDebouncedSearchQuery(query);
-    }, 500),
+    }, 600),
     []
   );
 
@@ -122,11 +126,10 @@ export default function Projects() {
     }
   };
 
-  // Set a random featured project every n seconds
+  // Rotate through the last 3 projects every 3 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * validatedProjects.length);
-      setFeaturedProject(validatedProjects[randomIndex]);
+      setCurrentFeaturedIndex((prev) => (prev + 1) % lastThreeProjects.length);
     }, 3000);
 
     return () => clearInterval(interval);
@@ -242,11 +245,11 @@ export default function Projects() {
 
           {/* Main Content */}
           <div className="flex flex-col gap-6">
-            {/* Featured Project */}
+            {/* Featured Projects */}
             {activeTab === "all" && (
               <Tilt key="compact" rotationFactor={2} isRevese>
                 <motion.div
-                  key={featuredProject.id}
+                  key={lastThreeProjects[currentFeaturedIndex].id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
@@ -254,7 +257,7 @@ export default function Projects() {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 sm:gap-6">
                     <a
-                      href={featuredProject.link}
+                      href={lastThreeProjects[currentFeaturedIndex].link}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -262,10 +265,13 @@ export default function Projects() {
                         <div />
                         <Image
                           src={
-                            featuredProject?.image ||
+                            lastThreeProjects[currentFeaturedIndex]?.image ||
                             "/placeholder.svg?height=400&width=600"
                           }
-                          alt={featuredProject?.title || "Featured Project"}
+                          alt={
+                            lastThreeProjects[currentFeaturedIndex]?.title ||
+                            "Featured Project"
+                          }
                           width={600}
                           height={400}
                           priority={true}
@@ -276,30 +282,30 @@ export default function Projects() {
 
                     <div className="pt-6 px-0 flex flex-col justify-between">
                       <div>
-                        <div className="flex items-center gap-3 mb-4 ">
+                        <div className="flex items-center gap-3 mb-4">
                           <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-gray-700 flex items-center justify-center hover:bg-purple-500/20 transition-all duration-200 cursor-pointer">
                             <Code size={25} />
                           </div>
                           <div>
                             <h3 className="text-lg md:text-3xl font-medium">
-                              {featuredProject?.title}
+                              {lastThreeProjects[currentFeaturedIndex]?.title}
                             </h3>
                             <p className="text-sm md:text-md text-gray-400">
-                              Featured Project
+                              Latest Project
                             </p>
                           </div>
                         </div>
 
                         <p className="text-gray-300 mb-6 text-sm md:text-lg">
-                          {featuredProject?.description}
+                          {lastThreeProjects[currentFeaturedIndex]?.description}
                         </p>
 
                         <div className="flex flex-wrap gap-2 mb-6 text-sm md:text-lg">
-                          {featuredProject?.technologies
+                          {lastThreeProjects[currentFeaturedIndex]?.technologies
                             ?.slice(0, 3)
                             .map((tech) => (
                               <span
-                                key={`${featuredProject.id}-${tech.id}`}
+                                key={`${lastThreeProjects[currentFeaturedIndex].id}-${tech.id}`}
                                 className="text-xs px-3 py-1 rounded-full"
                                 style={{
                                   backgroundColor: tech.color?.bg || "#2d2d3a",
@@ -316,17 +322,17 @@ export default function Projects() {
                         <div>
                           <div className="text-sm text-gray-400">Category</div>
                           <div className="text-sm md:text-lg font-medium capitalize">
-                            {featuredProject?.category}
+                            {lastThreeProjects[currentFeaturedIndex]?.category}
                           </div>
                         </div>
 
                         <a
-                          href={featuredProject.link}
+                          href={lastThreeProjects[currentFeaturedIndex].link}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="px-4 py-3 sm:px-6 bg-gray-900 text-white rounded-lg hover:bg-purple-500/20 font-medium xl:w-60"
                         >
-                          <button className="flex items-center gap-2 font-medium text-ellipsis w-full justify-center ">
+                          <button className="flex items-center gap-2 font-medium text-ellipsis w-full justify-center">
                             Visit
                             <ExternalLink size={16} />
                           </button>
@@ -360,6 +366,7 @@ export default function Projects() {
                         (project) =>
                           activeTab === "all" || project.category === activeTab
                       )
+                      .slice(3)
                       .map((project) => (
                         <Tilt key={project.id} rotationFactor={5} isRevese>
                           <motion.div
