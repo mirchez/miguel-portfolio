@@ -17,8 +17,6 @@ const validatedProjects = validateProjects(projects);
 
 // Get the last 3 projects for featured section
 const lastThreeProjects = validatedProjects.slice(0, 3);
-console.log({ lastThreeProjects });
-
 // Get unique categories
 const categories = [
   "all",
@@ -65,8 +63,14 @@ export default function Projects() {
   useEffect(() => {
     let result = validatedProjects;
 
+    // If category is "all", exclude the first 3 projects
+    if (selectedCategory === "all") {
+      result = result.slice(3);
+    }
+
+    // Apply category filter if not "all"
     if (selectedCategory !== "all") {
-      result = result.filter(
+      result = validatedProjects.filter(
         (project) => project.category === selectedCategory
       );
     }
@@ -366,7 +370,6 @@ export default function Projects() {
                         (project) =>
                           activeTab === "all" || project.category === activeTab
                       )
-                      .slice(3)
                       .map((project) => (
                         <Tilt key={project.id} rotationFactor={5} isRevese>
                           <motion.div
