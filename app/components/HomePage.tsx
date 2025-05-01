@@ -31,15 +31,17 @@ export default function HomePage() {
       />
 
       <AnimatePresence mode="wait">
-        <div className="w-full max-w-7xl mx-auto z-10 px-6 py-12 md:pb-24 md:pt-20 ">
+        <div className="w-full max-w-7xl mx-auto z-10 px-6 py-12 md:pb-24 md:pt-20">
           {/* Titulo Principal */}
           <CardTitle />
           <div className="flex flex-col xl:flex-row gap-8 md:gap-16 items-center">
             {/* Sección izquierda */}
             <motion.div
+              key="left-section"
               className="w-full xl:w-1/4 text-left"
               initial={{ opacity: 0, x: -30 }}
               animate={mounted ? { opacity: 1, x: 0 } : {}}
+              exit={{ opacity: 0, x: -30 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <h2 className="text-xl md:text-2xl font-light tracking-wider mb-6">
@@ -55,8 +57,9 @@ export default function HomePage() {
             </motion.div>
 
             {/*Principal Card */}
-            <Tilt key="compact" rotationFactor={5} isRevese>
+            <Tilt key="main-card" rotationFactor={2} isRevese>
               <motion.div
+                key="profile-card"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{
                   opacity: 1,
@@ -110,9 +113,11 @@ export default function HomePage() {
 
             {/* Sección derecha */}
             <motion.div
+              key="right-section"
               className="w-full xl:w-1/4 text-left"
               initial={{ opacity: 0, x: 30 }}
               animate={mounted ? { opacity: 1, x: 0 } : {}}
+              exit={{ opacity: 0, x: 30 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <h2 className="text-xl md:text-2xl font-light tracking-wider mb-6">
