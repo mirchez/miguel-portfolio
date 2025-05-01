@@ -20,7 +20,7 @@ function CardTitle() {
     }, 2000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [titles.length]);
 
   return (
     <h1 className="text-5xl md:text-7xl tracking-tighter text-center font-regular mb-8">

@@ -3,7 +3,7 @@ import { Particles } from "@/components/ui/particle";
 
 const page = () => {
   return (
-    <div className="relative bg-black">
+    <div className="relative">
       <Particles
         className="absolute inset-0"
         quantity={150}

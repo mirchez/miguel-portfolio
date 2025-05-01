@@ -79,8 +79,8 @@ export default function ContactPage() {
               Contact Me
             </h1>
             <p className="text-center text-gray-400 text-sm">
-              Feel free to send a message. I'll respond as soon as possible.
-              Thanks for reaching out!
+              Feel free to send a message. I&apos;ll respond as soon as
+              possible. Thanks for reaching out!
             </p>
 
             {/* Formulario */}

@@ -21,7 +21,7 @@ export default function HomePage() {
   // Altura fija para mantener consistencia durante la transición
   const cardHeight = "min-h-[400px]";
   return (
-    <main className="relative w-full min-h-screen flex items-center justify-center bg-black text-white font-sans overflow-y-auto px-4 pb-6 sm:pb-0">
+    <main className="relative w-full min-h-screen flex items-center justify-center text-white font-sans overflow-y-auto px-4 pb-6 sm:pb-0">
       <Particles
         className="absolute inset-0"
         quantity={150}
