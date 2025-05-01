@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import HeaderIcons from "@/components/ui/headerIcons"; // o la ruta correcta si la pones en /components/ui
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,6 +32,7 @@ export default function RootLayout({
       >
         <HeaderIcons />
         {children}
+        <Toaster position="top-right" />
       </body>
     </html>
   );

@@ -81,8 +81,8 @@ export default function Projects() {
   return (
     <div className="min-h-screen text-white overflow-x-hidden pb-15 sm:pb-2">
       <Particles
-        className="absolute inset-0"
-        quantity={250}
+        className="absolute inset-0 hidden lg:block"
+        quantity={150}
         ease={10}
         color="#ffffff"
         refresh
@@ -196,7 +196,6 @@ export default function Projects() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 1 }}
                   className="p-3 md:p-6 border border-gray-700 rounded-xl overflow-hidden"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-2 sm:gap-6">
@@ -215,6 +214,7 @@ export default function Projects() {
                           alt={featuredProject?.title || "Featured Project"}
                           width={600}
                           height={400}
+                          priority={true}
                           className="object-cover h-[300px] sm:h-[350px] w-full object-top rounded-xl relative aspect-video md:aspect-auto"
                         />
                       </div>
@@ -326,6 +326,9 @@ export default function Projects() {
                                   alt={project.title || "Project"}
                                   width={400}
                                   height={300}
+                                  priority={
+                                    project.id === "21" || project.id === "20"
+                                  }
                                   className="w-full h-full object-cover transition-transform duration-300 rounded-xl "
                                 />
                               </div>

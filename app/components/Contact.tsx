@@ -3,8 +3,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Github, Mail, Linkedin } from "lucide-react";
-import { useState } from "react";
 import { Tilt } from "./ui/tilt";
+import { useActionState } from "react";
+import { sendContactEmail, ContactFormState } from "../actions/actions";
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 function isIOS() {
   if (typeof navigator === "undefined") return false;
@@ -14,47 +20,69 @@ function isIOS() {
 }
 
 function getGmailLink() {
-  if (typeof navigator === "undefined") return "https://mail.google.com/mail";
+  if (typeof navigator === "undefined")
+    return "mailto:mmirandasanchez16@gmail.com";
 
   const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const email = "mmirandasanchez16@gmail.com";
+  const subject = "Contact from Portfolio";
 
   if (isMobile) {
     if (isIOS()) {
-      // iOS
-      return "googlegmail://co?to=mmirandasanchez16@gmail.com";
+      // iOS - intentamos abrir Gmail primero, si no funciona usamos mailto
+      return `mailto:${email}?subject=${encodeURIComponent(subject)}`;
     } else {
-      // Android
-      return "intent://co?to=mmirandasanchez16@gmail.com#Intent;package=com.google.android.gm;scheme=googlegmail;end";
+      // Android - intentamos múltiples opciones
+      return `mailto:${email}?subject=${encodeURIComponent(subject)}`;
     }
   }
-  // Desktop
-  return "https://mail.google.com/mail/?view=cm&to=mmirandasanchez16@gmail.com";
+  // Desktop - abrimos Gmail web
+  return `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(
+    subject
+  )}`;
 }
 
+const contactSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Invalid email address"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
+
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
+  const [state, formAction] = useActionState<ContactFormState, FormData>(
+    sendContactEmail,
+    {
+      success: false,
+      message: "",
+    }
+  );
+
+  const {
+    register,
+    formState: { errors },
+    reset,
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
   });
 
-  const handleChange = (
-    e:
-      | React.ChangeEvent<HTMLInputElement>
-      | React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Formulario enviado:", formData);
-  };
+  useEffect(() => {
+    if (state.success) {
+      toast.success(state.message || "Message sent successfully!");
+      reset();
+    } else if (state.message) {
+      toast.error(state.message);
+    }
+  }, [state, reset]);
 
   const handleGmailClick = () => {
     const link = getGmailLink();
-    window.location.href = link;
+    if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+      window.open(link);
+    } else {
+      window.location.href = link;
+    }
   };
 
   const iconsClass: string =
@@ -84,38 +112,59 @@ export default function ContactPage() {
             </p>
 
             {/* Formulario */}
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form action={formAction} className="flex flex-col gap-4">
               {/* Name and Email */}
               <div className="flex gap-4">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-full bg-black/30 border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-white/20 placeholder-gray-500"
-                  required
-                />
-                <input
-                  type="text"
-                  name="email"
-                  placeholder="Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full bg-black/30 border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-white/20 placeholder-gray-500"
-                  required
-                />
+                <div className="w-full">
+                  <input
+                    {...register("name")}
+                    type="text"
+                    name="name"
+                    id="name"
+                    autoComplete="name"
+                    placeholder="Name"
+                    className="w-full bg-black/30 border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-white/20 placeholder-gray-500"
+                  />
+                  {errors.name && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.name.message}
+                    </p>
+                  )}
+                </div>
+                <div className="w-full">
+                  <input
+                    {...register("email")}
+                    type="email"
+                    name="email"
+                    id="email"
+                    autoComplete="email"
+                    placeholder="Email"
+                    className="w-full bg-black/30 border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-white/20 placeholder-gray-500"
+                  />
+                  {errors.email && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.email.message}
+                    </p>
+                  )}
+                </div>
               </div>
 
               {/* Message Area */}
-              <textarea
-                name="message"
-                placeholder="Message"
-                className="w-full bg-black/30 border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-white/20 placeholder-gray-500 resize-none min-h-50 mb-5"
-                value={formData.message}
-                onChange={handleChange}
-                required
-              />
+              <div>
+                <textarea
+                  {...register("message")}
+                  name="message"
+                  id="message"
+                  autoComplete="off"
+                  placeholder="Message"
+                  className="w-full bg-black/30 border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-white/20 placeholder-gray-500 resize-none min-h-50 mb-5"
+                />
+                {errors.message && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.message.message}
+                  </p>
+                )}
+              </div>
 
               {/* Submit Button */}
               <button
@@ -127,7 +176,7 @@ export default function ContactPage() {
             </form>
 
             {/* Divider */}
-            <div className="border-t border-gray-700 " />
+            <div className="border-t border-gray-700" />
 
             {/* Botones sociales */}
             <div className="flex flex-col gap-4">
