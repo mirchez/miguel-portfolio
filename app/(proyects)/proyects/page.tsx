@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "@/data/projects";
@@ -9,6 +9,8 @@ import { validateProjects } from "@/lib/utils";
 import { Particles } from "@/components/ui/particle";
 import Link from "next/link";
 import { Tilt } from "@/components/ui/tilt";
+import toast from "react-hot-toast";
+import debounce from "lodash/debounce";
 
 // Validate projects to prevent errors
 const validatedProjects = validateProjects(projects);
@@ -35,12 +37,27 @@ allTechnologies.forEach((tech) => {
 export default function Projects() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState(validatedProjects);
   const [featuredProject, setFeaturedProject] = useState(validatedProjects[0]);
 
   const [activeTab, setActiveTab] = useState("all");
 
-  // Filter projects based on category and search query
+  // Debounced search handler
+  const debouncedSearch = useCallback(
+    debounce((query: string) => {
+      setDebouncedSearchQuery(query);
+    }, 500),
+    []
+  );
+
+  // Handle search input change
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    debouncedSearch(e.target.value);
+  };
+
+  // Filter projects based on category and debounced search query
   useEffect(() => {
     let result = validatedProjects;
 
@@ -50,8 +67,8 @@ export default function Projects() {
       );
     }
 
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
+    if (debouncedSearchQuery) {
+      const query = debouncedSearchQuery.toLowerCase();
       result = result.filter(
         (project) =>
           project.title?.toLowerCase().includes(query) ||
@@ -63,10 +80,47 @@ export default function Projects() {
           ) ||
           false
       );
+
+      // Show toast with search results
+      if (result.length === 0) {
+        toast.error(`No projects found for "${debouncedSearchQuery}"`);
+      } else {
+        toast.success(
+          `Found ${result.length} project${result.length === 1 ? "" : "s"}`,
+          {
+            duration: 800,
+          }
+        );
+      }
     }
 
     setFilteredProjects(result);
-  }, [selectedCategory, searchQuery]);
+  }, [selectedCategory, debouncedSearchQuery]);
+
+  // Handle category change
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setActiveTab(category);
+
+    // Show toast for category change
+    if (category !== "all") {
+      const categoryProjects = validatedProjects.filter(
+        (project) => project.category === category
+      );
+      toast.success(
+        `${categoryProjects.length} ${category} project${
+          categoryProjects.length === 1 ? "" : "s"
+        } found`,
+        {
+          duration: 800,
+        }
+      );
+    } else {
+      toast.success(`Showing all ${validatedProjects.length} projects`, {
+        duration: 800,
+      });
+    }
+  };
 
   // Set a random featured project every n seconds
   useEffect(() => {
@@ -97,9 +151,9 @@ export default function Projects() {
             <input
               type="text"
               placeholder="Search projects, technologies..."
-              className=" w-full bg-gray-800/50 border border-gray-700 rounded-lg py-3 sm:py-4  pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-gray-600"
+              className="w-full bg-gray-800/50 border border-gray-700 rounded-lg py-3 sm:py-4 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-gray-600"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={handleSearchChange}
             />
           </div>
         </header>
@@ -114,7 +168,7 @@ export default function Projects() {
               </div>
             </Link>
             <button
-              onClick={() => setActiveTab("all")}
+              onClick={() => handleCategoryChange("all")}
               className={`px-3 py-1 text-sm rounded-sm ${
                 activeTab === "all"
                   ? "bg-purple-500/20 text-purple-400"
@@ -124,7 +178,7 @@ export default function Projects() {
               All
             </button>
             <button
-              onClick={() => setActiveTab("fullstack")}
+              onClick={() => handleCategoryChange("fullstack")}
               className={`px-3 py-1 text-sm rounded-sm ${
                 activeTab === "fullstack"
                   ? "bg-purple-500/20 text-purple-400"
@@ -134,7 +188,7 @@ export default function Projects() {
               Fullstack
             </button>
             <button
-              onClick={() => setActiveTab("ecommerce")}
+              onClick={() => handleCategoryChange("ecommerce")}
               className={`px-3 py-1 text-sm rounded-sm ${
                 activeTab === "ecommerce"
                   ? "bg-purple-500/20 text-purple-400"
@@ -144,7 +198,7 @@ export default function Projects() {
               Ecommerce
             </button>
             <button
-              onClick={() => setActiveTab("external-api")}
+              onClick={() => handleCategoryChange("external-api")}
               className={`px-3 py-1 text-sm rounded-sm ${
                 activeTab === "external-api"
                   ? "bg-purple-500/20 text-purple-400"
@@ -172,7 +226,7 @@ export default function Projects() {
                 {categories.map((category) => (
                   <button
                     key={category}
-                    onClick={() => setSelectedCategory(category)}
+                    onClick={() => handleCategoryChange(category)}
                     className={`text-left p-2 rounded-lg text-sm ${
                       selectedCategory === category
                         ? "bg-purple-700/20 text-purple-400"
