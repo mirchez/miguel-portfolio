@@ -71,7 +71,7 @@ export default function HomePage() {
                   y: -100,
                   transition: { duration: 0.3 },
                 }}
-                className={`z-10 py-10 pb-5 sm:px-10 sm:py-10 rounded-3xl text-center w-full lg:w-[600px] border border-white/20 cursor-pointer ${cardHeight} flex flex-col justify-center`}
+                className={`z-10 py-10 pb-5 sm:px-10 sm:py-10 rounded-3xl text-center w-full lg:w-[600px]  bg-gray-800/30 border border-white/20 cursor-pointer ${cardHeight} flex flex-col justify-center`}
                 whileHover={{
                   scale: 1.03,
                   boxShadow: "0 0 15px rgba(255, 255, 255, 0.2)",
