@@ -167,7 +167,7 @@ export default function Projects() {
 
         <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-6 p-6">
           {/* Categories for Mobile */}
-          <div className="flex gap-2 lg:hidden items-center justify-center">
+          <div className="flex flex-wrap gap-2 lg:hidden items-center justify-center ">
             <Link href="/">
               <div className="text-sm flex items-center gap-1 rounded-lg p-2 hover:bg-purple-500/20 cursor-pointer ">
                 <SquareArrowLeft size={18} className="text-gray-400" />
