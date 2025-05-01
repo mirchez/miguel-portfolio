@@ -1,9 +1,9 @@
 # Miguel Miranda Portfolio
 
 [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://miguel-miranda-portfolio.vercel.app/)
-[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.0-38B2AC)](https://tailwindcss.com/)
+[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.0-38B2AC)](https://tailwindcss.com/)
 
 My personal portfolio built with modern technologies and web development best practices.
 
@@ -11,20 +11,22 @@ My personal portfolio built with modern technologies and web development best pr
 
 ## 🚀 Features
 
-- ⚡ **Optimized Performance** with Next.js 14 and Server Components
-- 🎨 **Responsive Design** using TailwindCSS
-- 🔄 **Smooth Animations** with Framer Motion
+- ⚡ **Optimized Performance** with Next.js 15 and Turbopack
+- 🎨 **Responsive Design** using TailwindCSS 4
+- 🔄 **Smooth Animations** with Framer Motion and Anime.js
 - 🌓 **Modern Design** with glassmorphism effects and particles
 - 📧 **Functional Contact Form** with validation and notifications
 - 🔍 **Search and Filter** projects with debouncing
 - 📱 **Fully Responsive** across all devices
+- ✍️ **Typewriter Effect** for dynamic text animations
+- 🎭 **Advanced Animations** with custom CSS animations
 
 ## 🛠️ Technologies Used
 
-- **Framework**: Next.js 14
-- **Language**: TypeScript
-- **Styling**: TailwindCSS
-- **Animations**: Framer Motion
+- **Framework**: Next.js 15
+- **Language**: TypeScript 5
+- **Styling**: TailwindCSS 4
+- **Animations**: Framer Motion + Anime.js
 - **Forms**: React Hook Form + Zod
 - **Email**: Nodemailer
 - **UI/UX**:
@@ -32,22 +34,26 @@ My personal portfolio built with modern technologies and web development best pr
   - Lucide Icons
   - Particles
   - Custom Tilt Effect
+  - Typewriter Effect
+  - Custom CSS Animations
 
 ## 📦 Main Dependencies
 
 ```json
 {
   "dependencies": {
-    "next": "14.x",
-    "react": "18.x",
-    "framer-motion": "^10.x",
-    "tailwindcss": "^3.x",
-    "react-hook-form": "^7.x",
-    "zod": "^3.x",
-    "nodemailer": "^6.x",
-    "react-hot-toast": "^2.x",
-    "lucide-react": "^0.x",
-    "lodash": "^4.x"
+    "next": "15.3.1",
+    "react": "19.0.0",
+    "framer-motion": "^12.7.5",
+    "tailwindcss": "^4",
+    "react-hook-form": "^7.56.1",
+    "zod": "^3.24.3",
+    "nodemailer": "^6.10.1",
+    "react-hot-toast": "^2.5.2",
+    "lucide-react": "^0.503.0",
+    "lodash": "^4.17.21",
+    "animejs": "^4.0.2",
+    "react-simple-typewriter": "^5.0.1"
   }
 }
 ```
@@ -98,7 +104,13 @@ miguel-portfolio/
 │   ├── components/     # Reusable components
 │   ├── actions/        # Server Actions
 │   ├── lib/           # Utilities and helpers
-│   └── data/          # Static data (projects)
+│   ├── hooks/         # Custom React hooks
+│   ├── store/         # State management
+│   ├── types/         # TypeScript types
+│   ├── data/          # Static data (projects)
+│   ├── (Home)/        # Home page components
+│   ├── (projects)/    # Projects page components
+│   └── (contact)/     # Contact page components
 ├── public/            # Static files
 └── styles/           # Global styles
 ```
@@ -111,6 +123,7 @@ miguel-portfolio/
 - Debounced search
 - Technology visualization
 - Rotating featured project
+- Smooth transitions and animations
 
 ### Contact Form
 
@@ -118,6 +131,7 @@ miguel-portfolio/
 - Toast notifications
 - Nodemailer email sending
 - Error handling
+- Loading states
 
 ### Animations and UI
 
@@ -125,6 +139,9 @@ miguel-portfolio/
 - Entry/exit animations
 - Background particles effect
 - Card tilt effect
+- Typewriter text animations
+- Custom CSS animations
+- Smooth page transitions
 
 ## 📱 Responsive Design
 
@@ -152,10 +169,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🌟 Key Features
 
-- **Modern Tech Stack**: Built with Next.js 14, TypeScript, and TailwindCSS
-- **Performance**: Optimized with Server Components and dynamic imports
+- **Modern Tech Stack**: Built with Next.js 15, TypeScript 5, and TailwindCSS 4
+- **Performance**: Optimized with Turbopack and Server Components
 - **User Experience**: Smooth animations and intuitive interface
 - **Maintainability**: Clean code structure and TypeScript integration
 - **Accessibility**: Semantic HTML and keyboard navigation
 - **SEO**: Meta tags and optimized content structure
 - **Security**: Environment variables and secure form handling
+- **Animations**: Advanced animations with Framer Motion and Anime.js
