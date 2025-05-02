@@ -140,7 +140,7 @@ export default function Projects() {
   }, []);
 
   return (
-    <div className="min-h-screen text-white overflow-x-hidden pb-15 sm:pb-2 ">
+    <div className="min-h-screen text-white overflow-x-hidden">
       <Particles
         className="absolute inset-0 hidden lg:block"
         quantity={150}
