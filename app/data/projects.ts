@@ -326,7 +326,7 @@ export const projects: Project[] = [
       },
     ],
     category: "social",
-    link: "https://calendar-backend-production-f4fe.up.railway.app/auth/login",
+    link: "https://calendar-backend-k4qx.onrender.com",
   },
   {
     id: "17",
