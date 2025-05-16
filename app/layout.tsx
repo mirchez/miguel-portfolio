@@ -33,16 +33,16 @@ export const metadata: Metadata = {
   authors: [{ name: "Miguel Miranda" }],
   creator: "Miguel Miranda",
   publisher: "Miguel Miranda",
-  metadataBase: new URL("https://miguelmiranda.dev"), // Replace with your actual domain
+  metadataBase: new URL("https://miguel-miranda-portfolio.vercel.app"),
   openGraph: {
     title: "Miguel Miranda | Portfolio",
     description:
       "Personal portfolio showcasing Miguel Miranda's web development projects and experience.",
-    url: "https://miguelmiranda.dev", // Replace with your actual domain
+    url: "https://miguel-miranda-portfolio.vercel.app",
     siteName: "Miguel Miranda Portfolio",
     images: [
       {
-        url: "/og-image.png", // You should create and add this image
+        url: "/portfolio.PNG",
         width: 1200,
         height: 630,
         alt: "Miguel Miranda Portfolio",
@@ -50,14 +50,6 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
     type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Miguel Miranda | Portfolio",
-    description:
-      "Personal portfolio showcasing Miguel Miranda's web development projects and experience.",
-    images: ["/og-image.png"], // Same image as OpenGraph
-    creator: "@yourtwitter", // Replace with your Twitter handle
   },
   robots: {
     index: true,
@@ -70,11 +62,8 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: "your-google-site-verification", // Add your Google Search Console verification
-  },
   alternates: {
-    canonical: "https://miguelmiranda.dev", // Replace with your actual domain
+    canonical: "https://miguel-miranda-portfolio.vercel.app",
   },
 };
 

@@ -1,14 +1,15 @@
 "use client";
 
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, Twitter } from "lucide-react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
+const iconsClass: string =
+  "h-7 w-7 md:w-8 md:h-8 xl:w-10 xl:h-10 text-white hover:text-purple-500 ";
+
 export default function HeaderIcons() {
   const pathname = usePathname();
-  const iconsClass: string =
-    "h-7 w-7 xl:w-10 xl:h-10 text-white hover:text-purple-500 ";
 
   return (
     pathname !== "/contact" && (
@@ -26,8 +27,9 @@ export default function HeaderIcons() {
             y: -20,
             transition: { duration: 0.3 },
           }}
-          className="absolute top-3 right-1/2 translate-x-1/2 xl:right-20 xl:top-7 z-50 flex space-x-1 md:space-x-4"
+          className="absolute top-5 right-1/2 translate-x-1/2 xl:right-30 xl:top-7 z-50 flex space-x-2 md:space-x-4 xl:space-y-5"
         >
+          {/* GitHub */}
           <Link
             href="https://github.com/mirchez"
             target="_blank"
@@ -36,6 +38,7 @@ export default function HeaderIcons() {
           >
             <Github className={iconsClass} />
           </Link>
+          {/* LinkedIn */}
           <Link
             href="https://linkedin.com/in/mirchez"
             target="_blank"
@@ -43,6 +46,15 @@ export default function HeaderIcons() {
             aria-label="LinkedIn"
           >
             <Linkedin className={iconsClass} />
+          </Link>
+          {/* Twitter | X */}
+          <Link
+            href="https://x.com/mirchezz"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Twitter | X"
+          >
+            <Twitter className={iconsClass} />
           </Link>
         </motion.div>
       </AnimatePresence>
