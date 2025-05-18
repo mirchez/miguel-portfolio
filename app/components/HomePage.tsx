@@ -21,17 +21,16 @@ export default function HomePage() {
   // Altura fija para mantener consistencia durante la transición
   const cardHeight = "min-h-[400px]";
   return (
-    <main className="relative w-full min-h-screen flex items-center justify-center text-white font-sans overflow-y-auto px-4 pb-6 sm:pb-0">
+    <main className="relative w-full min-h-screen flex items-center justify-center text-white font-sans overflow-y-auto py-15 px-4 pb-6">
       <Particles
         className="absolute inset-0"
         quantity={150}
         ease={10}
         color="#ffffff"
-        refresh
       />
 
       <AnimatePresence mode="wait">
-        <div className="w-full max-w-7xl mx-auto z-10 px-6 py-12 md:pb-24 md:pt-20">
+        <div className="w-full max-w-7xl mx-auto z-10">
           {/* Titulo Principal */}
           <CardTitle />
           <div className="flex flex-col xl:flex-row gap-8 md:gap-16 items-center">
@@ -71,7 +70,7 @@ export default function HomePage() {
                   y: -100,
                   transition: { duration: 0.3 },
                 }}
-                className={`z-10 py-10 pb-5 sm:px-10 sm:py-10 rounded-3xl text-center w-full lg:w-[600px]  bg-gray-800/30 border border-white/20 cursor-pointer ${cardHeight} flex flex-col justify-center`}
+                className={`z-10 pb-5 px-10 py-10 rounded-3xl text-center w-full lg:w-[600px]  bg-gray-800/30 border border-white/20 cursor-pointer ${cardHeight} flex flex-col justify-center`}
                 whileHover={{
                   scale: 1.03,
                   boxShadow: "0 0 15px rgba(255, 255, 255, 0.2)",
@@ -81,12 +80,13 @@ export default function HomePage() {
               >
                 <Image
                   src="/Perfil.jpg"
-                  width={5184}
-                  height={3880}
+                  width={1700}
+                  height={1700}
                   alt="Profile Picture"
-                  className="w-60 h-45 m-auto rounded-xl opacity-95"
+                  className="w-60 h-60 md:w-70 md:h-70 m-auto rounded-xl opacity-95"
+                  priority
                 />
-                <h1 className="text-2xl font-bold mt-2">MIGUEL MIRANDA</h1>
+                <h1 className="text-2xl font-bold mt-5">MIGUEL MIRANDA</h1>
                 <h2 className="text-md text-gray-300">Web Developer</h2>
                 <p className="text-sm text-gray-400 mt-5">
                   Turning ideas into fast, scalable, and reliable web

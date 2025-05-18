@@ -6,7 +6,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 const iconsClass: string =
-  "h-7 w-7 md:w-8 md:h-8 xl:w-10 xl:h-10 text-white hover:text-purple-500 ";
+  "h-7 w-7 md:w-9 md:h-9 xl:w-10 xl:h-10 text-white hover:text-purple-500 ";
 
 export default function HeaderIcons() {
   const pathname = usePathname();
@@ -27,7 +27,7 @@ export default function HeaderIcons() {
             y: -20,
             transition: { duration: 0.3 },
           }}
-          className="absolute top-5 right-1/2 translate-x-1/2 xl:right-30 xl:top-7 z-50 flex space-x-2 md:space-x-4 xl:space-y-5"
+          className="absolute top-2 right-1/2 translate-x-1/2 xl:right-30 xl:top-7 z-50 flex space-x-2 md:space-x-4 xl:space-y-5"
         >
           {/* GitHub */}
           <Link
