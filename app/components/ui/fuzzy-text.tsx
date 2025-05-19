@@ -16,6 +16,11 @@ interface FuzzyTextProps {
   className?: string;
 }
 
+// Extiende el tipo para evitar 'any'
+interface FuzzyCanvas extends HTMLCanvasElement {
+  cleanupFuzzyText?: () => void;
+}
+
 const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
   (
     {
@@ -54,12 +59,12 @@ const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
     useEffect(() => {
       let animationFrameId: number;
       let isCancelled = false;
-      const canvas = canvasRef.current;
+      const canvas = canvasRef.current as FuzzyCanvas;
       if (!canvas) return;
 
       // Clean up previous animation if it exists
-      if ((canvas as any).cleanupFuzzyText) {
-        (canvas as any).cleanupFuzzyText();
+      if (canvas.cleanupFuzzyText) {
+        canvas.cleanupFuzzyText();
       }
 
       const init = async () => {
@@ -219,7 +224,7 @@ const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
           }
         };
 
-        (canvas as any).cleanupFuzzyText = cleanup;
+        canvas.cleanupFuzzyText = cleanup;
       };
 
       init();
@@ -227,8 +232,8 @@ const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
       return () => {
         isCancelled = true;
         window.cancelAnimationFrame(animationFrameId);
-        if (canvas && (canvas as any).cleanupFuzzyText) {
-          (canvas as any).cleanupFuzzyText();
+        if (canvas && canvas.cleanupFuzzyText) {
+          canvas.cleanupFuzzyText();
         }
       };
     }, [
@@ -242,6 +247,7 @@ const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
       hoverIntensity,
       canvasRef,
       resolvedTheme, // Re-render when theme changes
+      getComputedColor,
     ]);
 
     return <canvas ref={canvasRef} className={className} />;
