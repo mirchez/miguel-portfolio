@@ -79,7 +79,7 @@ export default function HomePage() {
                 whileTap={{ scale: 0.98 }}
               >
                 <Image
-                  src="/Perfil.jpg"
+                  src="/profile.jpg"
                   width={1700}
                   height={1700}
                   alt="Profile Picture"
