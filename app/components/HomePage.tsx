@@ -47,7 +47,7 @@ export default function HomePage() {
                 ABOUT ME
               </h2>
               <p className="text-sm text-gray-400 leading-relaxed">
-                I&apos;m a 20-year-old Fullstack Developer with a solid backend
+                I&apos;m a 20-year-old Fullstack Developer with a solid Frontend
                 focus, currently studying Systems Engineering. I&apos;m
                 passionate about AI, machine learning, and LLMs. I&apos;m mostly
                 self-taught, super committed, and I really take ownership of the
