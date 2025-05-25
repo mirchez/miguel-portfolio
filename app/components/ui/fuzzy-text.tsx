@@ -43,19 +43,6 @@ const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
     const { resolvedTheme } = useTheme();
     const textColorRef = useRef<string>("");
 
-    // Get the computed color from CSS variables
-    const getComputedColor = () => {
-      if (color) return color;
-
-      // Create temporary element to compute the actual color value
-      const tempEl = document.createElement("div");
-      tempEl.style.color = "var(--foreground)";
-      document.body.appendChild(tempEl);
-      const computedColor = window.getComputedStyle(tempEl).color;
-      document.body.removeChild(tempEl);
-      return computedColor;
-    };
-
     useEffect(() => {
       let animationFrameId: number;
       let isCancelled = false;
@@ -66,6 +53,19 @@ const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
       if (canvas.cleanupFuzzyText) {
         canvas.cleanupFuzzyText();
       }
+
+      // Get the computed color from CSS variables
+      const getComputedColor = () => {
+        if (color) return color;
+
+        // Create temporary element to compute the actual color value
+        const tempEl = document.createElement("div");
+        tempEl.style.color = "var(--foreground)";
+        document.body.appendChild(tempEl);
+        const computedColor = window.getComputedStyle(tempEl).color;
+        document.body.removeChild(tempEl);
+        return computedColor;
+      };
 
       const init = async () => {
         if (document.fonts?.ready) {
@@ -247,7 +247,6 @@ const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
       hoverIntensity,
       canvasRef,
       resolvedTheme, // Re-render when theme changes
-      getComputedColor,
     ]);
 
     return <canvas ref={canvasRef} className={className} />;

@@ -46,18 +46,22 @@ export default function Projects() {
   const [activeTab, setActiveTab] = useState("all");
 
   // Debounced search handler
-  const debouncedSearch = useCallback(
-    debounce((query: string) => {
-      setDebouncedSearchQuery(query);
-    }, 600),
-    []
-  );
+  const debouncedSearch = useCallback((query: string) => {
+    setDebouncedSearchQuery(query);
+  }, []);
+
+  const debouncedSearchHandler = useCallback(debounce(debouncedSearch, 600), [
+    debouncedSearch,
+  ]);
 
   // Handle search input change
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-    debouncedSearch(e.target.value);
-  };
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchQuery(e.target.value);
+      debouncedSearchHandler(e.target.value);
+    },
+    [debouncedSearchHandler]
+  );
 
   // Filter projects based on category and debounced search query
   useEffect(() => {
