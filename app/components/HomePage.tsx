@@ -24,8 +24,8 @@ export default function HomePage() {
     <main className="relative w-full min-h-screen flex items-center justify-center text-white font-sans overflow-y-auto py-15 px-4 pb-6">
       <Particles
         className="absolute inset-0"
-        quantity={150}
-        ease={10}
+        quantity={75}
+        ease={5}
         color="#ffffff"
       />
 
@@ -47,11 +47,14 @@ export default function HomePage() {
                 ABOUT ME
               </h2>
               <p className="text-sm text-gray-400 leading-relaxed">
-                20-year-old Frontend Developer with strong backend skills,
-                currently pursuing a degree in Systems Engineering. Passionate
-                about innovation, self-taught, and committed to mastering modern
-                technologies. Known for a strong sense of responsibility,
-                dedication, and a drive to overcome any challenge.
+                I'm a 20-year-old Fullstack Developer with a solid backend
+                focus, currently studying Systems Engineering. I'm passionate
+                about AI, machine learning, and LLMs. I'm mostly self-taught,
+                super committed, and I really take ownership of the projects I
+                work on. I'm known for being responsible, proactive, dedicated,
+                and always up for a challenge, especially when it comes to
+                learning new tech and contributing to projects with real
+                potential and impact.
               </p>
             </motion.div>
 
@@ -80,11 +83,13 @@ export default function HomePage() {
               >
                 <Image
                   src="/profile.jpg"
-                  width={1700}
-                  height={1700}
+                  width={700}
+                  height={700}
                   alt="Profile Picture"
                   className="w-60 h-60 md:w-70 md:h-70 m-auto rounded-xl opacity-95"
                   priority
+                  loading="eager"
+                  quality={85}
                 />
                 <h1 className="text-2xl font-bold mt-5">MIGUEL MIRANDA</h1>
                 <h2 className="text-md text-gray-300">Web Developer</h2>
@@ -124,11 +129,15 @@ export default function HomePage() {
                 My Experience
               </h2>
               <p className="text-sm text-gray-400 leading-relaxed">
-                With over a year of experience delivering projects using React,
-                TypeScript, Node.js, MongoDB, and Next.js, I am dedicated to
-                building scalable, high-performance web platforms that provide
-                exceptional user experiences. Constantly improving my skills to
-                stay ahead in a fast-evolving tech landscape.
+                I've been programming for over three years and have more than a
+                year of hands-on experience in building projects with React,
+                TypeScript, Node.js, MongoDB, and Next.js. I'm all about
+                creating scalable, high-performance web apps that actually make
+                a difference for users. Always learning and keeping up with the
+                latest tech. I love bringing fresh ideas to the table, being
+                involved with my team, growing together, and building stuff
+                that's genuinely useful — not just writing code for the sake of
+                it.
               </p>
             </motion.div>
           </div>
