@@ -47,14 +47,14 @@ export default function HomePage() {
                 ABOUT ME
               </h2>
               <p className="text-sm text-gray-400 leading-relaxed">
-                I'm a 20-year-old Fullstack Developer with a solid backend
-                focus, currently studying Systems Engineering. I'm passionate
-                about AI, machine learning, and LLMs. I'm mostly self-taught,
-                super committed, and I really take ownership of the projects I
-                work on. I'm known for being responsible, proactive, dedicated,
-                and always up for a challenge, especially when it comes to
-                learning new tech and contributing to projects with real
-                potential and impact.
+                I&apos;m a 20-year-old Fullstack Developer with a solid backend
+                focus, currently studying Systems Engineering. I&apos;m
+                passionate about AI, machine learning, and LLMs. I&apos;m mostly
+                self-taught, super committed, and I really take ownership of the
+                projects I work on. I&apos;m known for being responsible,
+                proactive, dedicated, and always up for a challenge, especially
+                when it comes to learning new tech and contributing to projects
+                with real potential and impact.
               </p>
             </motion.div>
 
@@ -129,15 +129,15 @@ export default function HomePage() {
                 My Experience
               </h2>
               <p className="text-sm text-gray-400 leading-relaxed">
-                I've been programming for over three years and have more than a
-                year of hands-on experience in building projects with React,
-                TypeScript, Node.js, MongoDB, and Next.js. I'm all about
-                creating scalable, high-performance web apps that actually make
-                a difference for users. Always learning and keeping up with the
-                latest tech. I love bringing fresh ideas to the table, being
+                I&apos;ve been programming for over three years and have more
+                than a year of hands-on experience in building projects with
+                React, TypeScript, Node.js, MongoDB, and Next.js. I&apos;m all
+                about creating scalable, high-performance web apps that actually
+                make a difference for users. Always learning and keeping up with
+                the latest tech. I love bringing fresh ideas to the table, being
                 involved with my team, growing together, and building stuff
-                that's genuinely useful — not just writing code for the sake of
-                it.
+                that&apos;s genuinely useful — not just writing code for the
+                sake of it.
               </p>
             </motion.div>
           </div>

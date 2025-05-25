@@ -111,7 +111,7 @@ const Particles: React.FC<ParticlesProps> = ({
 
   const animate = React.useCallback(() => {
     clearContext();
-    circles.current.forEach((circle: Circle, i: number) => {
+    circles.current.forEach((circle: Circle) => {
       // Handle the alpha value
       const edge = [
         circle.x + circle.translateX - circle.size, // distance from left edge
