@@ -16,11 +16,6 @@ interface FuzzyTextProps {
   className?: string;
 }
 
-// Extiende el tipo para evitar 'any'
-interface FuzzyCanvas extends HTMLCanvasElement {
-  cleanupFuzzyText?: () => void;
-}
-
 const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
   (
     {
@@ -46,12 +41,12 @@ const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
     useEffect(() => {
       let animationFrameId: number;
       let isCancelled = false;
-      const canvas = canvasRef.current as FuzzyCanvas;
+      const canvas = canvasRef.current;
       if (!canvas) return;
 
       // Clean up previous animation if it exists
-      if (canvas.cleanupFuzzyText) {
-        canvas.cleanupFuzzyText();
+      if ((canvas as any).cleanupFuzzyText) {
+        (canvas as any).cleanupFuzzyText();
       }
 
       // Get the computed color from CSS variables
@@ -224,7 +219,7 @@ const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
           }
         };
 
-        canvas.cleanupFuzzyText = cleanup;
+        (canvas as any).cleanupFuzzyText = cleanup;
       };
 
       init();
@@ -232,8 +227,8 @@ const FuzzyText = React.forwardRef<HTMLCanvasElement, FuzzyTextProps>(
       return () => {
         isCancelled = true;
         window.cancelAnimationFrame(animationFrameId);
-        if (canvas && canvas.cleanupFuzzyText) {
-          canvas.cleanupFuzzyText();
+        if (canvas && (canvas as any).cleanupFuzzyText) {
+          (canvas as any).cleanupFuzzyText();
         }
       };
     }, [
