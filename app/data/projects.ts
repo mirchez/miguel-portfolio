@@ -321,7 +321,7 @@ export const projects: Project[] = [
       },
     ],
     category: "fullstack",
-    link: "https://dashboard-example-seven-gilt.vercel.app",
+    link: "https://background-gone-ai.vercel.app",
   },
   {
     id: "15",
