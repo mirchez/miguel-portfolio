@@ -278,6 +278,52 @@ export const projects: Project[] = [
     link: "https://devtree-miguel-miranda.netlify.app",
   },
   {
+    id: "24",
+    title: "BackgroundGone AI",
+    description:
+      "This project is a modern web application built with Next.js and React, leveraging ImageKit for powerful AI-driven image transformations. It uses Tailwind CSS for a utility-first styling approach, allowing for rapid UI development and a responsive design.",
+    image: "/24-BackgroundGoneAI.PNG",
+    technologies: [
+      {
+        id: "react",
+        name: "React.js",
+        color: { bg: "#E9F3F7", text: "#487CA5" },
+      },
+      {
+        id: "typescript",
+        name: "TypeScript",
+        color: { bg: "#F6F3F8", text: "#8A67AB" },
+      },
+      {
+        id: "tailwind",
+        name: "Tailwind CSS",
+        color: { bg: "#F9F2F5", text: "#B35488" },
+      },
+      {
+        id: "express",
+        name: "Express.js",
+        color: { bg: "#FAECEC", text: "#C4554D" },
+      },
+      {
+        id: "rest-api",
+        name: "RESTful APIs",
+        color: { bg: "#F3EEEE", text: "#976D57" },
+      },
+      {
+        id: "html-css-js",
+        name: "HTML/CSS/JS",
+        color: { bg: "#FAECEC", text: "#C4554D" },
+      },
+      {
+        id: "javascript",
+        name: "JavaScript",
+        color: { bg: "#FAF3DD", text: "#C29343" },
+      },
+    ],
+    category: "fullstack",
+    link: "https://dashboard-example-seven-gilt.vercel.app",
+  },
+  {
     id: "15",
     title: "Calendar App",
     description: "An online calendar where you can share your schedule.",
