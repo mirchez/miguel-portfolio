@@ -278,6 +278,52 @@ export const projects: Project[] = [
     link: "https://devtree-miguel-miranda.netlify.app",
   },
   {
+    id: "25",
+    title: "Traffic Flow",
+    description:
+      "Advanced traffic monitoring dashboard with real-time analytics, incident detection, and responsive design for modern cities. Here's a short video explaining it: https://app.screencastify.com/v2/watch/j8w8161xdcfmqhkclx2c",
+    image: "/25-TrafficFlowe.PNG",
+    technologies: [
+      {
+        id: "react",
+        name: "React.js",
+        color: { bg: "#E9F3F7", text: "#487CA5" },
+      },
+      {
+        id: "typescript",
+        name: "TypeScript",
+        color: { bg: "#F6F3F8", text: "#8A67AB" },
+      },
+      {
+        id: "tailwind",
+        name: "Tailwind CSS",
+        color: { bg: "#F9F2F5", text: "#B35488" },
+      },
+      {
+        id: "express",
+        name: "Express.js",
+        color: { bg: "#FAECEC", text: "#C4554D" },
+      },
+      {
+        id: "rest-api",
+        name: "RESTful APIs",
+        color: { bg: "#F3EEEE", text: "#976D57" },
+      },
+      {
+        id: "html-css-js",
+        name: "HTML/CSS/JS",
+        color: { bg: "#FAECEC", text: "#C4554D" },
+      },
+      {
+        id: "javascript",
+        name: "JavaScript",
+        color: { bg: "#FAF3DD", text: "#C29343" },
+      },
+    ],
+    category: "fullstack",
+    link: "https://geodashboard-wine.vercel.app",
+  },
+  {
     id: "24",
     title: "BackgroundGone AI",
     description:
