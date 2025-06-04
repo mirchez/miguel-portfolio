@@ -281,7 +281,7 @@ export const projects: Project[] = [
     id: "25",
     title: "Traffic Flow",
     description:
-      "Advanced traffic monitoring dashboard with real-time analytics, incident detection, and responsive design for modern cities. Here's a short video explaining it: https://app.screencastify.com/v2/watch/j8w8161xdcfmqhkclx2c",
+      "Early Demo of a advanced traffic monitoring dashboard with real-time analytics, incident detection, and responsive design for modern cities. Here's a short video explaining it: https://app.screencastify.com/v2/watch/j8w8161xdcfmqhkclx2c",
     image: "/25-TrafficFlowe.PNG",
     technologies: [
       {
