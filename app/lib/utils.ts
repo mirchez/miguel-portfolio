@@ -32,6 +32,7 @@ const ProjectSchema = z.object({
   technologies: z.array(TechnologySchema).default([]),
   category: z.string().default("otros"),
   link: z.string().default("#"),
+  videoLink: z.string().optional(),
 });
 
 // Función para crear un proyecto por defecto

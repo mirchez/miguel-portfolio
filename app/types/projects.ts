@@ -26,6 +26,7 @@ export interface Project {
   technologies: Technology[];
   category: ProjectCategory;
   link: string;
+  videoLink?: string;
 }
 
 // Exportamos también la interfaz Technology por si se necesita en otro lugar

@@ -1,5 +1,7 @@
 "use client";
 
+import type React from "react";
+
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -11,6 +13,7 @@ import Link from "next/link";
 import { Tilt } from "@/components/ui/tilt";
 import toast from "react-hot-toast";
 import debounce from "lodash/debounce";
+import { VideoPlayer } from "../../components/ui/video-player";
 
 // Validate projects to prevent errors
 const validatedProjects = validateProjects(projects);
@@ -271,21 +274,38 @@ export default function Projects() {
                         rel="noopener noreferrer"
                       >
                         <div className="relative aspect-video md:aspect-auto">
-                          <div />
-                          <Image
-                            src={
-                              lastThreeProjects[currentFeaturedIndex]?.image ||
-                              "/placeholder.svg?height=400&width=600"
-                            }
-                            alt={
-                              lastThreeProjects[currentFeaturedIndex]?.title ||
-                              "Featured Project"
-                            }
-                            width={600}
-                            height={400}
-                            priority={true}
-                            className="object-cover h-[300px] sm:h-[350px] w-full object-top rounded-xl relative aspect-video md:aspect-auto"
-                          />
+                          {lastThreeProjects[currentFeaturedIndex].videoLink ? (
+                            <VideoPlayer
+                              src={
+                                lastThreeProjects[currentFeaturedIndex]
+                                  .videoLink ||
+                                "/snippet-gZkKKOlLD90skRAqJA4VNtDZxU9Jgi.mp4"
+                              }
+                              poster={
+                                lastThreeProjects[currentFeaturedIndex]
+                                  ?.image ||
+                                "/placeholder.svg?height=400&width=600"
+                              }
+                              className="h-[300px] sm:h-[350px] w-full"
+                            />
+                          ) : (
+                            <Image
+                              src={
+                                lastThreeProjects[currentFeaturedIndex]
+                                  ?.image ||
+                                "/placeholder.svg?height=400&width=600" ||
+                                "/placeholder.svg"
+                              }
+                              alt={
+                                lastThreeProjects[currentFeaturedIndex]
+                                  ?.title || "Featured Project"
+                              }
+                              width={600}
+                              height={400}
+                              priority={true}
+                              className="object-cover h-[300px] sm:h-[350px] w-full object-top rounded-xl relative aspect-video md:aspect-auto"
+                            />
+                          )}
                         </div>
                       </a>
 
@@ -399,19 +419,35 @@ export default function Projects() {
                             >
                               <div className="flex flex-col gap-3 h-full">
                                 <div className="relative h-[200px]">
-                                  <Image
-                                    src={
-                                      project.image ||
-                                      "/placeholder.svg?height=300&width=400"
-                                    }
-                                    alt={project.title || "Project"}
-                                    width={400}
-                                    height={300}
-                                    priority={
-                                      project.id === "21" || project.id === "20"
-                                    }
-                                    className="w-full h-full object-cover transition-transform duration-300 rounded-xl"
-                                  />
+                                  {project.videoLink ? (
+                                    <VideoPlayer
+                                      src={
+                                        project.videoLink ||
+                                        "/snippet-gZkKKOlLD90skRAqJA4VNtDZxU9Jgi.mp4"
+                                      }
+                                      poster={
+                                        project.image ||
+                                        "/placeholder.svg?height=300&width=400"
+                                      }
+                                      className="h-full w-full"
+                                    />
+                                  ) : (
+                                    <Image
+                                      src={
+                                        project.image ||
+                                        "/placeholder.svg?height=300&width=400" ||
+                                        "/placeholder.svg"
+                                      }
+                                      alt={project.title || "Project"}
+                                      width={400}
+                                      height={300}
+                                      priority={
+                                        project.id === "21" ||
+                                        project.id === "20"
+                                      }
+                                      className="w-full h-full object-cover transition-transform duration-300 rounded-xl"
+                                    />
+                                  )}
                                 </div>
                                 <div className="pt-6 px-0 flex flex-col justify-between h-full">
                                   <div>

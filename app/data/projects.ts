@@ -324,6 +324,53 @@ export const projects: Project[] = [
     link: "https://geodashboard-wine.vercel.app",
   },
   {
+    id: "26",
+    title: "Form Builder Demo",
+    description:
+      "Early Demo of a advanced form builder. This is a modern web application designed to help users create custom forms quickly and effortlessly without writing a single line of code. It appears to be part of a broader SaaS concept aimed at streamlining form creation and response collection.",
+    image: "/26-form-builder.PNG",
+    technologies: [
+      {
+        id: "react",
+        name: "React.js",
+        color: { bg: "#E9F3F7", text: "#487CA5" },
+      },
+      {
+        id: "typescript",
+        name: "TypeScript",
+        color: { bg: "#F6F3F8", text: "#8A67AB" },
+      },
+      {
+        id: "tailwind",
+        name: "Tailwind CSS",
+        color: { bg: "#F9F2F5", text: "#B35488" },
+      },
+      {
+        id: "express",
+        name: "Express.js",
+        color: { bg: "#FAECEC", text: "#C4554D" },
+      },
+      {
+        id: "rest-api",
+        name: "RESTful APIs",
+        color: { bg: "#F3EEEE", text: "#976D57" },
+      },
+      {
+        id: "html-css-js",
+        name: "HTML/CSS/JS",
+        color: { bg: "#FAECEC", text: "#C4554D" },
+      },
+      {
+        id: "javascript",
+        name: "JavaScript",
+        color: { bg: "#FAF3DD", text: "#C29343" },
+      },
+    ],
+    category: "fullstack",
+    link: "https://form-builder-silk-two.vercel.app",
+    videoLink: "https://app.screencastify.com/watch/m989m1m7dhmjp2tixf15",
+  },
+  {
     id: "24",
     title: "BackgroundGone AI",
     description:
