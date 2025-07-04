@@ -228,7 +228,6 @@ export default function Projects() {
               </div>
             </motion.div>
 
-            {/* Featured Project */}
             {selectedCategory === "all" && (
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
@@ -257,7 +256,7 @@ export default function Projects() {
                         {lastThreeProjects.map((project) => (
                           <CarouselItem key={project.id}>
                             <div className="grid grid-cols-1 lg:grid-cols-2 mx-6 pb-3">
-                              {/* Project Image/Video */}
+
                               <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-muted border">
                                 <Link
                                   href={project.link || "#"}
@@ -289,8 +288,7 @@ export default function Projects() {
                                   )}
                                 </Link>
                               </div>
-
-                             
+             
                               <div className="pl-6 space-y-3">
                                 <div className="space-y-1.5">
                                   <div className="flex flex-col gap-2 mb-3">
