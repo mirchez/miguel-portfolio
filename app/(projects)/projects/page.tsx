@@ -290,7 +290,7 @@ export default function Projects() {
                                 </Link>
                               </div>
 
-                              {/* Project Info */}
+                             
                               <div className="pl-6 space-y-3">
                                 <div className="space-y-1.5">
                                   <div className="flex flex-col gap-2 mb-3">
