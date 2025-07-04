@@ -1,25 +1,46 @@
 "use client";
 
 import type React from "react";
-
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "@/data/projects";
-import { Search, ExternalLink, SquareArrowLeft, Code } from "lucide-react";
+import {
+  Search,
+  ExternalLink,
+  ArrowLeft,
+  Code,
+  Filter,
+  Play,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { validateProjects } from "@/lib/utils";
-import { Particles } from "@/components/ui/particle";
-import Link from "next/link";
-import { Tilt } from "@/components/ui/tilt";
 import toast from "react-hot-toast";
 import debounce from "lodash/debounce";
 import { VideoPlayer } from "../../components/ui/video-player";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 // Validate projects to prevent errors
 const validatedProjects = validateProjects(projects);
 
 // Get the last 3 projects for featured section
 const lastThreeProjects = validatedProjects.slice(0, 3);
+
 // Get unique categories
 const categories = [
   "all",
@@ -44,9 +65,7 @@ export default function Projects() {
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState(validatedProjects);
-  const [currentFeaturedIndex, setCurrentFeaturedIndex] = useState(0);
-
-  const [activeTab, setActiveTab] = useState("all");
+  const [api, setApi] = useState<CarouselApi>();
 
   // Debounced search handler
   const debouncedSearch = useCallback((query: string) => {
@@ -87,13 +106,10 @@ export default function Projects() {
       result = result.filter(
         (project) =>
           project.title?.toLowerCase().includes(query) ||
-          false ||
           project.description?.toLowerCase().includes(query) ||
-          false ||
-          project.technologies?.some(
-            (tech) => tech.name?.toLowerCase().includes(query) || false
-          ) ||
-          false
+          project.technologies?.some((tech) =>
+            tech.name?.toLowerCase().includes(query)
+          )
       );
 
       // Show toast with search results
@@ -102,9 +118,7 @@ export default function Projects() {
       } else {
         toast.success(
           `Found ${result.length} project${result.length === 1 ? "" : "s"}`,
-          {
-            duration: 800,
-          }
+          { duration: 800 }
         );
       }
     }
@@ -114,8 +128,8 @@ export default function Projects() {
 
   // Handle category change
   const handleCategoryChange = (category: string) => {
+    if (!category) return;
     setSelectedCategory(category);
-    setActiveTab(category);
 
     // Show toast for category change
     if (category !== "all") {
@@ -126,9 +140,7 @@ export default function Projects() {
         `${categoryProjects.length} ${category} project${
           categoryProjects.length === 1 ? "" : "s"
         } found`,
-        {
-          duration: 800,
-        }
+        { duration: 800 }
       );
     } else {
       toast.success(`Showing all ${validatedProjects.length} projects`, {
@@ -137,384 +149,369 @@ export default function Projects() {
     }
   };
 
-  // Rotate through the last 3 projects every 3 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentFeaturedIndex((prev) => (prev + 1) % lastThreeProjects.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="min-h-screen text-white overflow-x-hidden">
-      <Particles
-        className="fixed inset-0 hidden lg:block"
-        quantity={150}
-        ease={10}
-        color="#ffffff"
-        refresh
-      />
-      <div className="relative z-10 min-h-screen flex flex-col">
-        <div className="mt-7 sm:mt-13 xl:mt-5 pb-10 flex-">
-          {/* Search Bar */}
-          <header className="flex items-center justify-center p-6 sm:p-0 pb-0 xl:pb-2 sm:mx-20">
-            <div className="relative max-w-[900px] w-full bg-gray-800/30 border border-gray-700 rounded-lg">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-4 w-4 text-gray-400" />
-              </div>
-              <input
-                type="text"
-                placeholder="Search projects, technologies..."
-                className="w-full border border-gray-700 rounded-lg py-3 sm:py-4 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-gray-600"
-                value={searchQuery}
-                onChange={handleSearchChange}
-              />
-            </div>
-          </header>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        <AnimatePresence mode="wait">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="space-y-8"
+          >
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
+              className="space-y-6"
+            >
+              {/* Back to Home */}
+              <Button variant="outline" asChild>
+                <Link href="/">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back to Home
+                </Link>
+              </Button>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr] gap-6 p-6 max-w-[1400px] mx-auto flex-grow">
-            {/* Categories for Mobile */}
-            <div className="flex flex-wrap gap-2 lg:hidden items-center justify-center ">
-              <Link href="/">
-                <div className="text-sm flex items-center gap-1 rounded-lg p-2  hover:bg-purple-500/20 cursor-pointer ">
-                  <SquareArrowLeft size={18} className="text-gray-400" />
-                  <span> Home</span>
+              {/* Title and Search */}
+              <div className="space-y-4">
+                <div>
+                  <h1 className="text-3xl font-bold tracking-tight">
+                    My Projects
+                  </h1>
+                  <p className="text-muted-foreground">
+                    A collection of {validatedProjects.length} projects
+                    showcasing my development journey
+                  </p>
                 </div>
-              </Link>
-              <button
-                onClick={() => handleCategoryChange("all")}
-                className={`px-3 py-1 text-sm rounded-sm ${
-                  activeTab === "all"
-                    ? "bg-purple-500/20 text-purple-400"
-                    : "text-gray-400"
-                }`}
-              >
-                All
-              </button>
-              <button
-                onClick={() => handleCategoryChange("fullstack")}
-                className={`px-3 py-1 text-sm rounded-sm ${
-                  activeTab === "fullstack"
-                    ? "bg-purple-500/20 text-purple-400"
-                    : "text-gray-400"
-                }`}
-              >
-                Fullstack
-              </button>
-              <button
-                onClick={() => handleCategoryChange("ecommerce")}
-                className={`px-3 py-1 text-sm rounded-sm ${
-                  activeTab === "ecommerce"
-                    ? "bg-purple-500/20 text-purple-400"
-                    : "text-gray-400"
-                }`}
-              >
-                Ecommerce
-              </button>
-              <button
-                onClick={() => handleCategoryChange("external-api")}
-                className={`px-3 py-1 text-sm rounded-sm ${
-                  activeTab === "external-api"
-                    ? "bg-purple-500/20 text-purple-400"
-                    : "text-gray-400"
-                }`}
-              >
-                APIs
-              </button>
-            </div>
-            {/* Sidebar */}
-            <div className="hidden lg:flex flex-col gap-6">
-              <Link href="/">
-                <div className="flex items-center gap-3 bg-gray-800/30 rounded-lg p-4 hover:bg-purple-500/20 cursor-pointer border border-gray-700">
-                  <SquareArrowLeft size={18} className="text-gray-400" />
-                  <span>Back To Home</span>
-                </div>
-              </Link>
 
-              {/* Categories */}
-              <div className="border border-gray-700 rounded-xl p-4  bg-gray-800/30">
-                <h3 className="text-sm font-medium text-gray-400 mb-3">
-                  Categories
-                </h3>
-                <div className="flex flex-col gap-2">
-                  {categories.map((category) => (
-                    <button
-                      key={category}
-                      onClick={() => handleCategoryChange(category)}
-                      className={`text-left p-2 rounded-lg text-sm ${
-                        selectedCategory === category
-                          ? "bg-purple-700/20 text-purple-400"
-                          : "hover:bg-purple-500/20 "
-                      }`}
-                    >
-                      <span className="capitalize">{category}</span>
-                    </button>
-                  ))}
+                {/* Search Bar */}
+                <div className="relative max-w-md">
+                  <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    type="text"
+                    placeholder="Search projects, technologies..."
+                    className="pl-10"
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                  />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Main Content */}
-            <div className="flex flex-col gap-6">
-              {/* Featured Projects */}
-              {activeTab === "all" && (
-                <Tilt key="compact" rotationFactor={2} isRevese>
-                  <motion.div
-                    key={lastThreeProjects[currentFeaturedIndex].id}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    className="p-3 md:p-6  bg-gray-800/30 border border-gray-700 rounded-xl overflow-hidden"
+            {/* Category Filters */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+              className="space-y-4"
+            >
+              <div className="flex items-center gap-2 px-2">
+                <Filter className="h-5 w-5 text-muted-foreground" />
+                <h2 className="font-semibold">Categories</h2>
+              </div>
+              <div className="flex flex-wrap gap-2 px-2">
+                {categories.map((category) => (
+                  <Button
+                    key={category}
+                    variant={
+                      selectedCategory === category ? "default" : "outline"
+                    }
+                    size="sm"
+                    onClick={() => handleCategoryChange(category)}
+                    className="capitalize"
                   >
-                    <div className="grid grid-cols-1 md:grid-cols-2 sm:gap-6">
-                      <a
-                        href={lastThreeProjects[currentFeaturedIndex].link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <div className="relative aspect-video md:aspect-auto">
-                          {lastThreeProjects[currentFeaturedIndex].videoLink ? (
-                            <VideoPlayer
-                              src={
-                                lastThreeProjects[currentFeaturedIndex]
-                                  .videoLink ||
-                                "/snippet-gZkKKOlLD90skRAqJA4VNtDZxU9Jgi.mp4"
-                              }
-                              poster={
-                                lastThreeProjects[currentFeaturedIndex]
-                                  ?.image ||
-                                "/placeholder.svg?height=400&width=600"
-                              }
-                              className="h-[300px] sm:h-[350px] w-full"
-                            />
-                          ) : (
-                            <Image
-                              src={
-                                lastThreeProjects[currentFeaturedIndex]
-                                  ?.image ||
-                                "/placeholder.svg?height=400&width=600" ||
-                                "/placeholder.svg"
-                              }
-                              alt={
-                                lastThreeProjects[currentFeaturedIndex]
-                                  ?.title || "Featured Project"
-                              }
-                              width={600}
-                              height={400}
-                              priority={true}
-                              className="object-cover h-[300px] sm:h-[350px] w-full object-top rounded-xl relative aspect-video md:aspect-auto"
-                            />
-                          )}
-                        </div>
-                      </a>
+                    {category}
+                  </Button>
+                ))}
+              </div>
+            </motion.div>
 
-                      <div className="pt-6 px-0 flex flex-col justify-between">
-                        <div>
-                          <div className="flex items-center gap-3 mb-4">
-                            <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border-2 border-gray-700 flex items-center justify-center hover:bg-purple-500/20 transition-all duration-200 cursor-pointer">
-                              <Code size={25} />
-                            </div>
-                            <div>
-                              <h3 className="text-lg md:text-3xl font-medium">
-                                {lastThreeProjects[currentFeaturedIndex]?.title}
-                              </h3>
-                              <p className="text-sm md:text-md text-gray-400">
-                                Latest Project
-                              </p>
-                            </div>
-                          </div>
-
-                          <p className="text-gray-300 mb-6 text-sm md:text-lg">
-                            {
-                              lastThreeProjects[currentFeaturedIndex]
-                                ?.description
-                            }
-                          </p>
-
-                          <div className="flex flex-wrap gap-2 mb-6 text-sm md:text-lg">
-                            {lastThreeProjects[
-                              currentFeaturedIndex
-                            ]?.technologies
-                              ?.slice(0, 3)
-                              .map((tech) => (
-                                <span
-                                  key={`${lastThreeProjects[currentFeaturedIndex].id}-${tech.id}`}
-                                  className="text-xs px-3 py-1 rounded-full"
-                                  style={{
-                                    backgroundColor:
-                                      tech.color?.bg || "#2d2d3a",
-                                    color: tech.color?.text || "#a8a8b3",
-                                  }}
+            {/* Featured Project */}
+            {selectedCategory === "all" && (
+              <motion.div
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
+              >
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-xl flex items-center justify-between">
+                      Featured Projects
+                      <Badge variant="secondary" className="font-normal">
+                        {lastThreeProjects.length} projects
+                      </Badge>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <Carousel
+                      opts={{
+                        align: "start",
+                        loop: true,
+                      }}
+                      className="w-full relative"
+                      setApi={setApi}
+                    >
+                      <CarouselContent>
+                        {lastThreeProjects.map((project) => (
+                          <CarouselItem key={project.id}>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 mx-6 pb-3">
+                              {/* Project Image/Video */}
+                              <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-muted border">
+                                <Link
+                                  href={project.link || "#"}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="block w-full h-full"
                                 >
-                                  {tech.name}
-                                </span>
-                              ))}
-                          </div>
-                        </div>
-
-                        <div className="flex justify-between items-center">
-                          <div>
-                            <div className="text-sm text-gray-400">
-                              Category
-                            </div>
-                            <div className="text-sm md:text-lg font-medium capitalize">
-                              {
-                                lastThreeProjects[currentFeaturedIndex]
-                                  ?.category
-                              }
-                            </div>
-                          </div>
-
-                          <a
-                            href={lastThreeProjects[currentFeaturedIndex].link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="px-4 py-3 sm:px-6 bg-gray-900 text-white rounded-lg hover:bg-purple-500/20 font-medium xl:w-60"
-                          >
-                            <button className="flex items-center gap-2 font-medium text-ellipsis w-full justify-center">
-                              Visit
-                              <ExternalLink size={16} />
-                            </button>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </Tilt>
-              )}
-
-              {/* Projects Grid */}
-              <AnimatePresence>
-                <motion.div
-                  key={activeTab}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h2 className="text-2xl md:text-3xl font-bold tracking-wider mb-5 capitalize">
-                    {activeTab === "all"
-                      ? "All Projects"
-                      : `${activeTab} Projects`}
-                  </h2>
-                  {/* Projects Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8 md:mt-5 min-h-0">
-                    <AnimatePresence>
-                      {filteredProjects
-                        .filter(
-                          (project) =>
-                            activeTab === "all" ||
-                            project.category === activeTab
-                        )
-                        .map((project) => (
-                          <Tilt key={project.id} rotationFactor={5} isRevese>
-                            <motion.div
-                              key={project.id}
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              exit={{ opacity: 0, y: 20 }}
-                              transition={{ duration: 0.3 }}
-                              className="p-3 md:p-6 border bg-gray-800/30 border-gray-700 rounded-xl overflow-hidden h-[450px] md:h-[500px]"
-                            >
-                              <div className="flex flex-col gap-3 h-full">
-                                <div className="relative h-[200px]">
                                   {project.videoLink ? (
                                     <VideoPlayer
-                                      src={
-                                        project.videoLink ||
-                                        "/snippet-gZkKKOlLD90skRAqJA4VNtDZxU9Jgi.mp4"
-                                      }
+                                      src={project.videoLink}
                                       poster={
-                                        project.image ||
-                                        "/placeholder.svg?height=300&width=400"
+                                        project.image || "/placeholder.svg"
                                       }
-                                      className="h-full w-full"
+                                      className="w-full h-full object-cover"
                                     />
                                   ) : (
-                                    <Image
-                                      src={
-                                        project.image ||
-                                        "/placeholder.svg?height=300&width=400" ||
-                                        "/placeholder.svg"
-                                      }
-                                      alt={project.title || "Project"}
-                                      width={400}
-                                      height={300}
-                                      priority={
-                                        project.id === "21" ||
-                                        project.id === "20"
-                                      }
-                                      className="w-full h-full object-cover transition-transform duration-300 rounded-xl"
-                                    />
+                                    <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-300">
+                                      <Image
+                                        src={
+                                          project.image || "/placeholder.svg"
+                                        }
+                                        alt={
+                                          project.title || "Featured Project"
+                                        }
+                                        fill
+                                        className="object-cover"
+                                      />
+                                    </div>
                                   )}
-                                </div>
-                                <div className="pt-6 px-0 flex flex-col justify-between h-full">
-                                  <div>
-                                    <div className="flex justify-between items-start mb-2">
-                                      <h3 className="font-medium text-lg mb-3">
-                                        {project.title}
-                                      </h3>
-                                      <span className="text-xs px-2 py-1 bg-gray-700 rounded-full capitalize">
-                                        {project.category}
-                                      </span>
-                                    </div>
+                                </Link>
+                              </div>
 
-                                    <p className="text-sm text-gray-400 mb-3 line-clamp-2">
-                                      {project.description}
-                                    </p>
-                                    <div className="flex flex-wrap gap-1 mt-2">
-                                      {project.technologies
-                                        ?.slice(0, 3)
-                                        .map((tech) => (
-                                          <span
-                                            key={`${project.id}-${tech.id}`}
-                                            className="text-xs px-2 py-0.5 rounded-full"
-                                            style={{
-                                              backgroundColor:
-                                                tech.color?.bg || "#2d2d3a",
-                                              color:
-                                                tech.color?.text || "#a8a8b3",
-                                            }}
-                                          >
-                                            {tech.name}
-                                          </span>
-                                        ))}
-
-                                      {project.technologies &&
-                                        project.technologies.length > 6 && (
-                                          <span className="text-xs px-2 py-0.5 rounded-full bg-gray-700 text-gray-300">
-                                            +{project.technologies.length - 6}
-                                          </span>
-                                        )}
-                                    </div>
-                                  </div>
-
-                                  <div className="flex justify-end">
-                                    <a
-                                      href={project.link}
+                              {/* Project Info */}
+                              <div className="pl-6 space-y-3">
+                                <div className="space-y-1.5">
+                                  <div className="flex flex-col gap-2 mb-3">
+                                    <Link
+                                      href={project.link || "#"}
                                       target="_blank"
                                       rel="noopener noreferrer"
-                                      className="w-full sm:w-fit"
+                                      className="group/link"
                                     >
-                                      <button className="flex items-center gap-2 sm:px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-purple-500/20 font-medium justify-center w-full sm:w-fit">
-                                        Visit
-                                        <ExternalLink size={16} />
-                                      </button>
-                                    </a>
+                                      <h3 className="text-xl font-semibold group-hover/link:text-primary transition-colors">
+                                        {project.title}
+                                      </h3>
+                                    </Link>
+                                    <Badge
+                                      variant="outline"
+                                      className="capitalize text-xs"
+                                    >
+                                      {project.category}
+                                    </Badge>
+                                  </div>
+                                  <p className="text-xs text-muted-foreground line-clamp-2">
+                                    {project.description}
+                                  </p>
+                                </div>
+
+                                <div className="space-y-3">
+                                  <div className="flex flex-wrap gap-1">
+                                    {project.technologies?.map((tech) => (
+                                      <Badge
+                                        key={tech.id}
+                                        variant="secondary"
+                                        className="text-[10px] font-normal py-0"
+                                      >
+                                        {tech.name}
+                                      </Badge>
+                                    ))}
+                                  </div>
+
+                                  <div className="flex gap-1.5">
+                                    {project.videoLink && (
+                                      <Button
+                                        size="sm"
+                                        variant="outline"
+                                        className="h-7 text-xs px-2"
+                                        asChild
+                                      >
+                                        <Link
+                                          href={project.videoLink}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="inline-flex items-center"
+                                        >
+                                          <Play className="mr-1.5 h-3 w-3" />
+                                          Watch Demo
+                                        </Link>
+                                      </Button>
+                                    )}
                                   </div>
                                 </div>
+                                <div className="h-full">
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="h-7 text-xs px-2"
+                                    asChild
+                                  >
+                                    <Link
+                                      href={project.link || "#"}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="inline-flex items-center"
+                                    >
+                                      <ExternalLink className="mr-1.5 h-3 w-3" />
+                                      View Project
+                                    </Link>
+                                  </Button>
+                                </div>
                               </div>
-                            </motion.div>
-                          </Tilt>
+                            </div>
+                          </CarouselItem>
                         ))}
-                    </AnimatePresence>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
+                      </CarouselContent>
+                      <div className="absolute bottom-3 right-6 flex gap-1">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-7 w-7"
+                          onClick={() => api?.scrollPrev()}
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          className="h-7 w-7"
+                          onClick={() => api?.scrollNext()}
+                        >
+                          <ChevronRight className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </Carousel>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
+            {/* Projects Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+            >
+              <div className="space-y-6">
+                {/* Project Count */}
+                <div className="flex items-center justify-between px-2">
+                  <h2 className="font-semibold">
+                    {selectedCategory === "all"
+                      ? "All Projects"
+                      : `${selectedCategory} Projects`}
+                  </h2>
+                  <Badge variant="secondary" className="font-normal">
+                    {filteredProjects.length} project
+                    {filteredProjects.length === 1 ? "" : "s"}
+                  </Badge>
+                </div>
+
+                {/* Grid */}
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <AnimatePresence mode="popLayout">
+                    {filteredProjects.map((project) => (
+                      <motion.div
+                        layout
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        key={project.id}
+                      >
+                        <Card className="overflow-hidden group mx-2 h-full">
+                          {/* Project Image/Video Container */}
+                          <div className="relative aspect-[16/9] mx-4 overflow-hidden rounded-[0.9rem] bg-muted mt-[-5px] border">
+                            <Link
+                              href={project.link || "#"}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block w-full h-full"
+                            >
+                              {project.videoLink ? (
+                                <div className="relative w-full h-full">
+                                  <VideoPlayer
+                                    src={project.videoLink}
+                                    poster={project.image || "/placeholder.svg"}
+                                    className="w-full h-full object-cover"
+                                  />
+                                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                                    <Play className="h-12 w-12 text-white transform scale-75 group-hover:scale-100 transition-transform duration-300" />
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-300">
+                                  <Image
+                                    src={project.image || "/placeholder.svg"}
+                                    alt={project.title || "Project"}
+                                    fill
+                                    className="object-cover"
+                                  />
+                                </div>
+                              )}
+                            </Link>
+                          </div>
+
+                          {/* Project Info */}
+                          <div className="p-4 space-y-3">
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <Badge
+                                  variant="outline"
+                                  className="capitalize text-xs"
+                                >
+                                  {project.category}
+                                </Badge>
+                                <Code className="h-4 w-4 text-muted-foreground" />
+                              </div>
+                              <Link
+                                href={project.link || "#"}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block group/link"
+                              >
+                                <h3 className="font-semibold line-clamp-1 group-hover/link:text-primary transition-colors">
+                                  {project.title}
+                                </h3>
+                                <p className="text-sm text-muted-foreground line-clamp-2">
+                                  {project.description}
+                                </p>
+                              </Link>
+                            </div>
+
+                            <div className="space-y-3">
+                              <div className="flex flex-wrap gap-1">
+                                {project.technologies?.map((tech) => (
+                                  <Badge
+                                    key={tech.id}
+                                    variant="secondary"
+                                    className="text-[10px] font-normal py-0"
+                                  >
+                                    {tech.name}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );

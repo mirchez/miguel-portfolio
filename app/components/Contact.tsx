@@ -2,8 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Github, Mail, Linkedin } from "lucide-react";
-import { Tilt } from "./ui/tilt";
+import { Github, Mail, Linkedin, Send, ArrowLeft, User, MessageSquare } from "lucide-react";
 import { useActionState } from "react";
 import { sendContactEmail, ContactFormState } from "../actions/actions";
 import { useEffect } from "react";
@@ -11,6 +10,12 @@ import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
 
 function isIOS() {
   if (typeof navigator === "undefined") return false;
@@ -29,14 +34,11 @@ function getGmailLink() {
 
   if (isMobile) {
     if (isIOS()) {
-      // iOS - intentamos abrir Gmail primero, si no funciona usamos mailto
       return `mailto:${email}?subject=${encodeURIComponent(subject)}`;
     } else {
-      // Android - intentamos múltiples opciones
       return `mailto:${email}?subject=${encodeURIComponent(subject)}`;
     }
   }
-  // Desktop - abrimos Gmail web
   return `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(
     subject
   )}`;
@@ -85,139 +87,213 @@ export default function ContactPage() {
     }
   };
 
-  const iconsClass: string =
-    "w-full bg-neutral-800 text-white flex items-center justify-center gap-2 py-3 rounded-md hover:bg-purple-600/20 transition-colors";
+  const socialLinks = [
+    { 
+      icon: Github, 
+      label: "GitHub", 
+      href: "https://github.com/mirchez",
+      description: "View my repositories"
+    },
+    { 
+      icon: Linkedin, 
+      label: "LinkedIn", 
+      href: "https://linkedin.com/in/mirchez",
+      description: "Professional network"
+    },
+    { 
+      icon: Mail, 
+      label: "Gmail", 
+      href: "#",
+      description: "Send direct email",
+      onClick: handleGmailClick
+    },
+  ];
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center px-4 py-10">
-      <AnimatePresence mode="wait">
-        <Tilt key="contact-card" rotationFactor={1} isRevese>
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-12 max-w-4xl">
+        <AnimatePresence mode="wait">
           <motion.div
-            key="contact-form"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              transition: { type: "spring", stiffness: 100, damping: 15 },
-            }}
-            exit={{ opacity: 0, y: 50 }}
-            className="bg-gray-800/30 sm:border sm:border-white/15 rounded-2xl w-full p-2 sm:p-8 flex flex-col gap-6"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            className="space-y-8"
           >
-            <h1 className="text-3xl font-bold text-center text-white">
-              Contact Me
-            </h1>
-            <p className="text-center text-gray-400 text-sm">
-              Feel free to send a message. I&apos;ll respond as soon as
-              possible. Thanks for reaching out!
-            </p>
+            {/* Header */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
+              className="text-center space-y-4"
+            >
+              <h1 className="text-3xl font-bold tracking-tight">Get In Touch</h1>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                I'd love to hear from you. Send me a message and I'll respond as soon as possible.
+              </p>
+            </motion.div>
 
-            {/* Formulario */}
-            <form action={formAction} className="flex flex-col gap-4">
-              {/* Name and Email */}
-              <div className="flex gap-4">
-                <div className="w-full">
-                  <input
-                    {...register("name")}
-                    type="text"
-                    name="name"
-                    id="name"
-                    autoComplete="name"
-                    placeholder="Name"
-                    className="w-full bg-black/30 border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-white/20 placeholder-gray-500"
-                  />
-                  {errors.name && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.name.message}
-                    </p>
-                  )}
-                </div>
-                <div className="w-full">
-                  <input
-                    {...register("email")}
-                    type="email"
-                    name="email"
-                    id="email"
-                    autoComplete="email"
-                    placeholder="Email"
-                    className="w-full bg-black/30 border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-white/20 placeholder-gray-500"
-                  />
-                  {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.email.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Message Area */}
-              <div>
-                <textarea
-                  {...register("message")}
-                  name="message"
-                  id="message"
-                  autoComplete="off"
-                  placeholder="Message"
-                  className="w-full bg-black/30 border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-white/20 placeholder-gray-500 resize-none min-h-50 mb-5"
-                />
-                {errors.message && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.message.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                className="w-full bg-white text-black font-semibold py-3 rounded-md hover:bg-white/90 transition-colors"
+            {/* Main Content */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Contact Form */}
+              <motion.div
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+                className="lg:col-span-2"
               >
-                Submit Message →
-              </button>
-            </form>
+                <Card className="h-full">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <MessageSquare className="h-5 w-5" />
+                      Send Message
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex flex-col h-full">
+                    <form action={formAction} className="space-y-6 flex-1 flex flex-col">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="name">Name</Label>
+                          <Input
+                            {...register("name")}
+                            id="name"
+                            type="text"
+                            placeholder="Your name"
+                            autoComplete="name"
+                          />
+                          {errors.name && (
+                            <p className="text-destructive text-sm">
+                              {errors.name.message}
+                            </p>
+                          )}
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="email">Email</Label>
+                          <Input
+                            {...register("email")}
+                            id="email"
+                            type="email"
+                            placeholder="your.email@example.com"
+                            autoComplete="email"
+                          />
+                          {errors.email && (
+                            <p className="text-destructive text-sm">
+                              {errors.email.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="space-y-2 flex-1">
+                        <Label htmlFor="message">Message</Label>
+                        <Textarea
+                          {...register("message")}
+                          id="message"
+                          placeholder="Tell me about your project or just say hello..."
+                          className="min-h-32 flex-1"
+                        />
+                        {errors.message && (
+                          <p className="text-destructive text-sm">
+                            {errors.message.message}
+                          </p>
+                        )}
+                      </div>
+                      <Button type="submit" className="w-full mt-auto">
+                        <Send className="mr-2 h-4 w-4" />
+                        Send Message
+                      </Button>
+                    </form>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
-            {/* Divider */}
-            <div className="border-t border-gray-700" />
-
-            {/* Botones sociales */}
-            <div className="flex flex-col gap-4">
-              <a
-                href="https://github.com/mirchez"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={iconsClass}
+              {/* Contact Info & Social */}
+              <motion.div
+                initial={{ opacity: 0, x: 8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
+                className="space-y-6"
               >
-                <Github size={18} />
-                GitHub
-              </a>
+                {/* Contact Info */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <User className="h-5 w-5" />
+                      Contact Info
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <p className="text-sm font-medium">Response Time</p>
+                      <p className="text-sm text-muted-foreground">Usually within 24 hours</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium">Location</p>
+                      <p className="text-sm text-muted-foreground">Available for remote work</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium">Languages</p>
+                      <p className="text-sm text-muted-foreground">English, Spanish</p>
+                    </div>
+                  </CardContent>
+                </Card>
 
-              <a
-                href="https://Linkedin.com/in/mirchez"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={iconsClass}
-              >
-                <Linkedin size={18} />
-                Linkedin
-              </a>
-
-              <button onClick={handleGmailClick} className={iconsClass}>
-                <Mail size={18} />
-                Gmail
-              </button>
+                {/* Social Links */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Connect With Me</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {socialLinks.map((link) => (
+                        <Button
+                          key={link.label}
+                          variant="outline"
+                          className="w-full justify-start gap-3 h-12"
+                          asChild={!link.onClick}
+                          onClick={link.onClick}
+                        >
+                          {link.onClick ? (
+                            <>
+                              <link.icon className="h-4 w-4" />
+                              <div className="flex flex-col items-start">
+                                <span className="text-sm font-medium">{link.label}</span>
+                                <span className="text-xs text-muted-foreground">{link.description}</span>
+                              </div>
+                            </>
+                          ) : (
+                            <a href={link.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 w-full">
+                              <link.icon className="h-4 w-4" />
+                              <div className="flex flex-col items-start">
+                                <span className="text-sm font-medium">{link.label}</span>
+                                <span className="text-xs text-muted-foreground">{link.description}</span>
+                              </div>
+                            </a>
+                          )}
+                        </Button>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </div>
 
-            {/* Link opcional para volver */}
-            <div className="mt-6 text-center">
-              <Link
-                href="/"
-                className="text-gray-400 hover:text-purple-500 text-sm"
-              >
-                ← Back To Home
-              </Link>
-            </div>
+            {/* Back to Home */}
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: 0.2, ease: "easeOut" }}
+              className="text-center pt-8"
+            >
+              <Separator className="mb-8" />
+              <Button variant="outline" asChild>
+                <Link href="/">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back to Home
+                </Link>
+              </Button>
+            </motion.div>
           </motion.div>
-        </Tilt>
-      </AnimatePresence>
+        </AnimatePresence>
+      </div>
     </div>
   );
 }
