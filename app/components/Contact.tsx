@@ -2,7 +2,15 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Github, Mail, Linkedin, Send, ArrowLeft, User, MessageSquare } from "lucide-react";
+import {
+  Github,
+  Mail,
+  Linkedin,
+  Send,
+  ArrowLeft,
+  User,
+  MessageSquare,
+} from "lucide-react";
 import { useActionState } from "react";
 import { sendContactEmail, ContactFormState } from "../actions/actions";
 import { useEffect } from "react";
@@ -88,24 +96,24 @@ export default function ContactPage() {
   };
 
   const socialLinks = [
-    { 
-      icon: Github, 
-      label: "GitHub", 
+    {
+      icon: Github,
+      label: "GitHub",
       href: "https://github.com/mirchez",
-      description: "View my repositories"
+      description: "View my repositories",
     },
-    { 
-      icon: Linkedin, 
-      label: "LinkedIn", 
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
       href: "https://linkedin.com/in/mirchez",
-      description: "Professional network"
+      description: "Professional network",
     },
-    { 
-      icon: Mail, 
-      label: "Gmail", 
+    {
+      icon: Mail,
+      label: "Gmail",
       href: "#",
       description: "Send direct email",
-      onClick: handleGmailClick
+      onClick: handleGmailClick,
     },
   ];
 
@@ -126,9 +134,12 @@ export default function ContactPage() {
               transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
               className="text-center space-y-4"
             >
-              <h1 className="text-3xl font-bold tracking-tight">Get In Touch</h1>
+              <h1 className="text-3xl font-bold tracking-tight">
+                Get In Touch
+              </h1>
               <p className="text-muted-foreground max-w-2xl mx-auto">
-                I'd love to hear from you. Send me a message and I'll respond as soon as possible.
+                I&apos;d love to hear from you. Send me a message and I&apos;ll
+                respond as soon as possible.
               </p>
             </motion.div>
 
@@ -149,7 +160,10 @@ export default function ContactPage() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="flex flex-col h-full">
-                    <form action={formAction} className="space-y-6 flex-1 flex flex-col">
+                    <form
+                      action={formAction}
+                      className="space-y-6 flex-1 flex flex-col"
+                    >
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label htmlFor="name">Name</Label>
@@ -223,15 +237,21 @@ export default function ContactPage() {
                   <CardContent className="space-y-4">
                     <div>
                       <p className="text-sm font-medium">Response Time</p>
-                      <p className="text-sm text-muted-foreground">Usually within 24 hours</p>
+                      <p className="text-sm text-muted-foreground">
+                        Usually within 24 hours
+                      </p>
                     </div>
                     <div>
                       <p className="text-sm font-medium">Location</p>
-                      <p className="text-sm text-muted-foreground">Available for remote work</p>
+                      <p className="text-sm text-muted-foreground">
+                        Available for remote work
+                      </p>
                     </div>
                     <div>
                       <p className="text-sm font-medium">Languages</p>
-                      <p className="text-sm text-muted-foreground">English, Spanish</p>
+                      <p className="text-sm text-muted-foreground">
+                        English, Spanish
+                      </p>
                     </div>
                   </CardContent>
                 </Card>
@@ -255,16 +275,29 @@ export default function ContactPage() {
                             <>
                               <link.icon className="h-4 w-4" />
                               <div className="flex flex-col items-start">
-                                <span className="text-sm font-medium">{link.label}</span>
-                                <span className="text-xs text-muted-foreground">{link.description}</span>
+                                <span className="text-sm font-medium">
+                                  {link.label}
+                                </span>
+                                <span className="text-xs text-muted-foreground">
+                                  {link.description}
+                                </span>
                               </div>
                             </>
                           ) : (
-                            <a href={link.href} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 w-full">
+                            <a
+                              href={link.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-3 w-full"
+                            >
                               <link.icon className="h-4 w-4" />
                               <div className="flex flex-col items-start">
-                                <span className="text-sm font-medium">{link.label}</span>
-                                <span className="text-xs text-muted-foreground">{link.description}</span>
+                                <span className="text-sm font-medium">
+                                  {link.label}
+                                </span>
+                                <span className="text-xs text-muted-foreground">
+                                  {link.description}
+                                </span>
                               </div>
                             </a>
                           )}

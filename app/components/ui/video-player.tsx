@@ -1,6 +1,7 @@
 "use client";
 
 import type React from "react";
+import Image from "next/image";
 
 import { useState, useRef, useEffect } from "react";
 import {
@@ -170,10 +171,12 @@ export function VideoPlayer({ src, poster, className = "" }: VideoPlayerProps) {
 
         {/* Thumbnail/poster image */}
         <div className="w-full h-full">
-          <img
+          <Image
             src={poster || "/placeholder.svg?height=300&width=400"}
             alt="Video thumbnail"
             className="w-full h-full object-cover"
+            width={400}
+            height={300}
           />
         </div>
 

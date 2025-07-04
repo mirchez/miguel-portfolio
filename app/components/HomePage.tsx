@@ -1,15 +1,25 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Github, Linkedin, Mail, MapPin, Code, Zap, Users, ExternalLink, ArrowRight, FolderOpen, Eye, ArrowUpRight } from "lucide-react";
+import {
+  Github,
+  Linkedin,
+  Mail,
+  MapPin,
+  Code,
+  Zap,
+  Users,
+  ExternalLink,
+  ArrowRight,
+  FolderOpen,
+  ArrowUpRight,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
@@ -20,11 +30,26 @@ export default function HomePage() {
 
   const techStack = [
     { name: "React", color: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
-    { name: "Next.js", color: "bg-gray-500/10 text-gray-300 border-gray-500/20" },
-    { name: "TypeScript", color: "bg-blue-600/10 text-blue-400 border-blue-600/20" },
-    { name: "Node.js", color: "bg-green-500/10 text-green-500 border-green-500/20" },
-    { name: "MongoDB", color: "bg-green-600/10 text-green-400 border-green-600/20" },
-    { name: "Tailwind", color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" },
+    {
+      name: "Next.js",
+      color: "bg-gray-500/10 text-gray-300 border-gray-500/20",
+    },
+    {
+      name: "TypeScript",
+      color: "bg-blue-600/10 text-blue-400 border-blue-600/20",
+    },
+    {
+      name: "Node.js",
+      color: "bg-green-500/10 text-green-500 border-green-500/20",
+    },
+    {
+      name: "MongoDB",
+      color: "bg-green-600/10 text-green-400 border-green-600/20",
+    },
+    {
+      name: "Tailwind",
+      color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
+    },
   ];
 
   const stats = [
@@ -34,9 +59,13 @@ export default function HomePage() {
   ];
 
   const socialLinks = [
-    { icon: Github, label: "GitHub", href: "#" },
-    { icon: Linkedin, label: "LinkedIn", href: "#" },
-    { icon: Mail, label: "Email", href: "#" },
+    { icon: Github, label: "GitHub", href: "https://github.com/mirchez" },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/mirchez",
+    },
+    { icon: Mail, label: "Email", href: "mailto:mmirandasanchez16@gmail.com" },
   ];
 
   if (!mounted) {
@@ -76,7 +105,7 @@ export default function HomePage() {
                         </p>
                       </div>
                     </div>
-                    
+
                     <div className="flex gap-2">
                       <Link href="/projects">
                         <Button size="sm" className="h-8">
@@ -84,7 +113,11 @@ export default function HomePage() {
                           View Projects +10
                         </Button>
                       </Link>
-                      <Link href="https://github.com/mirchez" target="_blank" rel="noopener noreferrer">
+                      <Link
+                        href="https://github.com/mirchez"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
                         <Button variant="outline" size="sm" className="h-8">
                           <Github className="h-3 w-3" />
                         </Button>
@@ -108,21 +141,26 @@ export default function HomePage() {
                   <AvatarFallback>MM</AvatarFallback>
                 </Avatar>
               </div>
-              
+
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tight">Miguel Miranda</h1>
-                <p className="text-lg text-muted-foreground">Full Stack Developer</p>
+                <h1 className="text-3xl font-bold tracking-tight">
+                  Miguel Miranda
+                </h1>
+                <p className="text-lg text-muted-foreground">
+                  Full Stack Developer
+                </p>
                 <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                   <MapPin className="h-4 w-4" />
                   <span>Systems Engineering Student</span>
                 </div>
               </div>
-              
+
               <p className="text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-                Turning ideas into fast, scalable, and reliable web applications with React and Next.js, 
-                driven by a strong commitment to quality and innovation.
+                Turning ideas into fast, scalable, and reliable web applications
+                with React and Next.js, driven by a strong commitment to quality
+                and innovation.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
                 <Link href="/contact">
                   <Button>
@@ -132,7 +170,7 @@ export default function HomePage() {
                 </Link>
                 <Link href="/contact">
                   <Button variant="outline">
-                    Let's Collaborate
+                    Let&apos;s Collaborate
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>
@@ -158,13 +196,17 @@ export default function HomePage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      I'm a 20-year-old Fullstack Developer with a solid Frontend focus, currently studying Systems Engineering. 
-                      I'm passionate about AI, machine learning, and LLMs. I'm mostly self-taught, super committed, and I really 
+                      I&apos;m a 20-year-old Fullstack Developer with a solid
+                      Frontend focus, currently studying Systems Engineering.
+                      I&apos;m passionate about AI, machine learning, and LLMs.
+                      I&apos;m mostly self-taught, super committed, and I really
                       take ownership of the projects I work on.
                     </p>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      I'm known for being responsible, proactive, dedicated, and always up for a challenge, especially 
-                      when it comes to learning new tech and contributing to projects with real potential and impact.
+                      I&apos;m known for being responsible, proactive,
+                      dedicated, and always up for a challenge, especially when
+                      it comes to learning new tech and contributing to projects
+                      with real potential and impact.
                     </p>
                   </CardContent>
                 </Card>
@@ -179,12 +221,15 @@ export default function HomePage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      I've been programming for over three years and have more than a year of hands-on experience in building 
-                      projects with React, TypeScript, Node.js, MongoDB, and Next.js.
+                      I&apos;ve been programming for over three years and have
+                      more than a year of hands-on experience in building
+                      projects with React, TypeScript, Node.js, MongoDB, and
+                      Next.js.
                     </p>
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      I'm all about creating scalable, high-performance web apps that actually make a difference for users. 
-                      Always learning and keeping up with the latest tech.
+                      I&apos;m all about creating scalable, high-performance web
+                      apps that actually make a difference for users. Always
+                      learning and keeping up with the latest tech.
                     </p>
                   </CardContent>
                 </Card>
@@ -204,15 +249,22 @@ export default function HomePage() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {stats.map((stat, index) => (
-                        <div key={stat.label} className="flex items-center justify-between">
+                      {stats.map((stat) => (
+                        <div
+                          key={stat.label}
+                          className="flex items-center justify-between"
+                        >
                           <div className="flex items-center gap-3">
                             <div className="p-2 rounded-lg bg-muted">
                               <stat.icon className="h-4 w-4 text-muted-foreground" />
                             </div>
-                            <span className="text-sm font-medium">{stat.label}</span>
+                            <span className="text-sm font-medium">
+                              {stat.label}
+                            </span>
                           </div>
-                          <span className="text-lg font-bold">{stat.value}</span>
+                          <span className="text-lg font-bold">
+                            {stat.value}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -222,21 +274,29 @@ export default function HomePage() {
                 {/* Contact Card */}
                 <Card>
                   <CardHeader>
-                    <CardTitle>Let's Connect</CardTitle>
+                    <CardTitle>Let&apos;s Connect</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
                       {socialLinks.map((link) => (
                         <Button
                           key={link.label}
+                          asChild
                           variant="outline"
                           className="w-full justify-between group"
                         >
-                          <div className="flex items-center gap-2">
-                            <link.icon className="h-4 w-4" />
-                            <span>{link.label}</span>
-                          </div>
-                          <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 w-full justify-between"
+                          >
+                            <span className="flex items-center gap-2">
+                              <link.icon className="h-4 w-4" />
+                              <span>{link.label}</span>
+                            </span>
+                            <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </a>
                         </Button>
                       ))}
                     </div>

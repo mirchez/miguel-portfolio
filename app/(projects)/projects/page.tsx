@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -24,14 +24,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
 
@@ -68,13 +64,10 @@ export default function Projects() {
   const [api, setApi] = useState<CarouselApi>();
 
   // Debounced search handler
-  const debouncedSearch = useCallback((query: string) => {
-    setDebouncedSearchQuery(query);
-  }, []);
-
-  const debouncedSearchHandler = useCallback(debounce(debouncedSearch, 600), [
-    debouncedSearch,
-  ]);
+  const debouncedSearchHandler = useCallback(
+    debounce((query) => setDebouncedSearchQuery(query), 600),
+    []
+  );
 
   // Handle search input change
   const handleSearchChange = useCallback(
@@ -259,21 +252,19 @@ export default function Projects() {
                             <div className="grid grid-cols-1 lg:grid-cols-2 mx-6 pb-3">
                               {/* Project Image/Video */}
                               <div className="relative aspect-[16/9] overflow-hidden rounded-lg bg-muted border">
-                                <Link
-                                  href={project.link || "#"}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="block w-full h-full"
-                                >
-                                  {project.videoLink ? (
-                                    <VideoPlayer
-                                      src={project.videoLink}
-                                      poster={
-                                        project.image || "/placeholder.svg"
-                                      }
-                                      className="w-full h-full object-cover"
-                                    />
-                                  ) : (
+                                {project.videoLink ? (
+                                  <VideoPlayer
+                                    src={project.videoLink}
+                                    poster={project.image || "/placeholder.svg"}
+                                    className="w-full h-full object-cover"
+                                  />
+                                ) : (
+                                  <Link
+                                    href={project.link || "#"}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="block w-full h-full"
+                                  >
                                     <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-300">
                                       <Image
                                         src={
@@ -286,8 +277,8 @@ export default function Projects() {
                                         className="object-cover"
                                       />
                                     </div>
-                                  )}
-                                </Link>
+                                  </Link>
+                                )}
                               </div>
 
                               {/* Project Info */}
@@ -432,24 +423,19 @@ export default function Projects() {
                         <Card className="overflow-hidden group mx-2 h-full">
                           {/* Project Image/Video Container */}
                           <div className="relative aspect-[16/9] mx-4 overflow-hidden rounded-[0.9rem] bg-muted mt-[-5px] border">
-                            <Link
-                              href={project.link || "#"}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block w-full h-full"
-                            >
-                              {project.videoLink ? (
-                                <div className="relative w-full h-full">
-                                  <VideoPlayer
-                                    src={project.videoLink}
-                                    poster={project.image || "/placeholder.svg"}
-                                    className="w-full h-full object-cover"
-                                  />
-                                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                                    <Play className="h-12 w-12 text-white transform scale-75 group-hover:scale-100 transition-transform duration-300" />
-                                  </div>
-                                </div>
-                              ) : (
+                            {project.videoLink ? (
+                              <VideoPlayer
+                                src={project.videoLink}
+                                poster={project.image || "/placeholder.svg"}
+                                className="w-full h-full object-cover"
+                              />
+                            ) : (
+                              <Link
+                                href={project.link || "#"}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block w-full h-full"
+                              >
                                 <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-300">
                                   <Image
                                     src={project.image || "/placeholder.svg"}
@@ -458,8 +444,8 @@ export default function Projects() {
                                     className="object-cover"
                                   />
                                 </div>
-                              )}
-                            </Link>
+                              </Link>
+                            )}
                           </div>
 
                           {/* Project Info */}
