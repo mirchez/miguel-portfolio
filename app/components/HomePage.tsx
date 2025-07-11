@@ -32,7 +32,7 @@ export default function HomePage() {
     { name: "React", color: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
     {
       name: "Next.js",
-      color: "bg-gray-500/10 text-gray-300 border-gray-500/20",
+      color: "bg-black text-gray-300 border-gray-500/20",
     },
     {
       name: "TypeScript",
@@ -90,8 +90,8 @@ export default function HomePage() {
               className="relative"
             >
               <Card className="hover:shadow-md transition-shadow duration-300">
-                <CardContent className="p-6">
-                  <div className="flex items-center justify-between">
+                <CardContent className="p-4 sm:p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
                     <div className="flex items-center gap-3">
                       <div className="p-2 rounded-md bg-muted">
                         <FolderOpen className="h-5 w-5 text-muted-foreground" />
@@ -106,20 +106,19 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <div className="flex gap-2">
-                      <Link href="/projects">
-                        <Button size="sm" className="h-8">
-                          <ArrowUpRight className="mr-2 h-3 w-3" />
-                          View Projects +10
-                        </Button>
-                      </Link>
+                    <div className="flex gap-2 justify-end items-center mt-2 sm:mt-0">
                       <Link
                         href="https://github.com/mirchez"
                         target="_blank"
                         rel="noopener noreferrer"
-                      >
-                        <Button variant="outline" size="sm" className="h-8">
-                          <Github className="h-3 w-3" />
+                      ></Link>
+                      <Link href="/projects">
+                        <Button size="sm" className="h-8">
+                          <ArrowUpRight className="mr-2 h-3 w-3" />
+                          <span className="hidden sm:inline">
+                            View Projects +10
+                          </span>
+                          <span className="sm:hidden">Projects</span>
                         </Button>
                       </Link>
                     </div>
@@ -162,12 +161,12 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
-                <Link href="/contact">
-                  <Button>
+                <Button asChild>
+                  <a href="mailto:mmirandasanchez16@gmail.com">
                     Get In Touch
                     <Mail className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
+                  </a>
+                </Button>
                 <Link href="/contact">
                   <Button variant="outline">
                     Let&apos;s Collaborate
@@ -196,7 +195,7 @@ export default function HomePage() {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <p className="text-sm text-muted-foreground leading-relaxed">
-                      I&apos;m a 20-year-old Fullstack Developer with a solid
+                      I&apos;m a 21-year-old Fullstack Developer with a solid
                       Frontend focus, currently studying Systems Engineering.
                       I&apos;m passionate about AI, machine learning, and LLMs.
                       I&apos;m mostly self-taught, super committed, and I really

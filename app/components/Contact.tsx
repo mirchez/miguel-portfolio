@@ -168,47 +168,35 @@ export default function ContactPage() {
                         <div className="space-y-2">
                           <Label htmlFor="name">Name</Label>
                           <Input
-                            {...register("name")}
                             id="name"
+                            name="name"
                             type="text"
                             placeholder="Your name"
                             autoComplete="name"
+                            required
                           />
-                          {errors.name && (
-                            <p className="text-destructive text-sm">
-                              {errors.name.message}
-                            </p>
-                          )}
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="email">Email</Label>
                           <Input
-                            {...register("email")}
                             id="email"
+                            name="email"
                             type="email"
                             placeholder="your.email@example.com"
                             autoComplete="email"
+                            required
                           />
-                          {errors.email && (
-                            <p className="text-destructive text-sm">
-                              {errors.email.message}
-                            </p>
-                          )}
                         </div>
                       </div>
                       <div className="space-y-2 flex-1">
                         <Label htmlFor="message">Message</Label>
                         <Textarea
-                          {...register("message")}
                           id="message"
+                          name="message"
                           placeholder="Tell me about your project or just say hello..."
                           className="min-h-32 flex-1"
+                          required
                         />
-                        {errors.message && (
-                          <p className="text-destructive text-sm">
-                            {errors.message.message}
-                          </p>
-                        )}
                       </div>
                       <Button type="submit" className="w-full mt-auto">
                         <Send className="mr-2 h-4 w-4" />

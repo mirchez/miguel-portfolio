@@ -74,6 +74,9 @@ export const metadata: Metadata = {
     initialScale: 1,
     maximumScale: 1,
   },
+};
+
+export const viewport = {
   themeColor: "#000000",
 };
 
@@ -92,8 +95,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="antialiased relative bg-black">
-        <HeaderIcons />
+      <body className="antialiased relative">
         {children}
         <Toaster position="top-right" />
       </body>
