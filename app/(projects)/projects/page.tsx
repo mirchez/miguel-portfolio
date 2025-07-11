@@ -322,10 +322,13 @@ export default function Projects() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Debounced search handler
-  const debouncedSearchHandler = useCallback(
-    debounce((query) => setDebouncedSearchQuery(query), 600),
-    []
-  );
+  const debouncedSearchHandler = useCallback((query: string) => {
+    const debouncedFn = debounce(
+      (q: string) => setDebouncedSearchQuery(q),
+      600
+    );
+    debouncedFn(query);
+  }, []);
 
   // Handle search input change
   const handleSearchChange = useCallback(

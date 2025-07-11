@@ -69,11 +69,7 @@ export default function ContactPage() {
     }
   );
 
-  const {
-    register,
-    formState: { errors },
-    reset,
-  } = useForm<ContactFormData>({
+  const { reset } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   });
 
