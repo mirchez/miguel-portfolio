@@ -6,7 +6,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-// Definimos los esquemas de validación
 const TechnologySchema = z.object({
   id: z.string().optional(),
   name: z.string().min(1, "El nombre de la tecnología es requerido"),
@@ -35,21 +34,17 @@ const ProjectSchema = z.object({
   videoLink: z.string().optional(),
 });
 
-// Función para crear un proyecto por defecto
 const createDefaultProject = () => ProjectSchema.parse({});
 
 export function validateProjects(
   projects: unknown
 ): z.infer<typeof ProjectSchema>[] {
-  // Si no es un array, retornamos un array vacío
   if (!Array.isArray(projects)) return [];
 
   return projects.map((project) => {
     try {
-      // Intentamos validar el proyecto
       return ProjectSchema.parse(project);
     } catch (error) {
-      // Si hay un error de validación, retornamos un proyecto por defecto
       console.error("Error al validar proyecto:", error);
       return createDefaultProject();
     }
