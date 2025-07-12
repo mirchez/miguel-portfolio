@@ -22,6 +22,7 @@ import {
   Layers,
 } from "lucide-react";
 import { validateProjects } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 import toast from "react-hot-toast";
 import debounce from "lodash/debounce";
 import { VideoPlayer } from "../../components/ui/video-player";
@@ -93,6 +94,25 @@ const Sidebar: React.FC<SidebarProps> = ({
   filteredCount,
   totalCount,
 }) => {
+  const isMobile = useIsMobile();
+
+  // Block body scroll only on mobile when sidebar is open
+  useEffect(() => {
+    if (isOpen && isMobile) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = "0px";
+    } else {
+      document.body.style.overflow = "unset";
+      document.body.style.paddingRight = "0px";
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "unset";
+      document.body.style.paddingRight = "0px";
+    };
+  }, [isOpen, isMobile]);
+
   const toggleTech = (tech: string) => {
     if (selectedTech.includes(tech)) {
       onTechChange(selectedTech.filter((t) => t !== tech));
@@ -111,9 +131,9 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <>
-      {/* Overlay for mobile */}
+      {/* Overlay for mobile only */}
       <AnimatePresence>
-        {isOpen && (
+        {isOpen && isMobile && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -121,6 +141,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             transition={{ duration: 0.2 }}
             className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40 lg:hidden"
             onClick={onToggle}
+            style={{ touchAction: "none" }}
           />
         )}
       </AnimatePresence>
@@ -141,7 +162,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-border/50">
+          <div className="flex items-center justify-between p-4 border-b border-border/50 flex-shrink-0">
             <motion.div
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : -10 }}
@@ -161,8 +182,8 @@ const Sidebar: React.FC<SidebarProps> = ({
             </Button>
           </div>
 
-          <ScrollArea className="flex-1 px-4">
-            <div className="space-y-6 py-4">
+          <ScrollArea className="flex-1 min-h-0">
+            <div className="space-y-6 py-4 px-4">
               {/* Search */}
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -294,7 +315,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.35 }}
-              className="p-4 border-t border-border/50"
+              className="p-4 border-t border-border/50 flex-shrink-0"
             >
               <Button
                 variant="outline"
@@ -322,13 +343,10 @@ export default function Projects() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Debounced search handler
-  const debouncedSearchHandler = useCallback((query: string) => {
-    const debouncedFn = debounce(
-      (q: string) => setDebouncedSearchQuery(q),
-      600
-    );
-    debouncedFn(query);
-  }, []);
+  const debouncedSearchHandler = useCallback(
+    debounce((query) => setDebouncedSearchQuery(query), 600),
+    []
+  );
 
   // Handle search input change
   const handleSearchChange = useCallback(
