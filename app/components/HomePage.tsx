@@ -23,9 +23,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function HomePage() {
   const [mounted, setMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 100);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const techStack = [
@@ -74,6 +83,51 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Fixed Portfolio Navbar */}
+      <motion.div
+        initial={{ opacity: 0, y: -100 }}
+        animate={{
+          opacity: isScrolled ? 1 : 0,
+          y: isScrolled ? 0 : -100,
+        }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b"
+      >
+        <div className="container mx-auto px-4 py-3 max-w-4xl">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-1.5 rounded-md bg-muted">
+                <FolderOpen className="h-4 w-4 text-muted-foreground" />
+              </div>
+              <div>
+                <h2 className="text-sm font-semibold tracking-tight">
+                  Portfolio
+                </h2>
+                <p className="text-xs text-muted-foreground">10+ projects</p>
+              </div>
+            </div>
+
+            <div className="flex gap-2 items-center">
+              <Link
+                href="https://github.com/mirchez"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="sm" variant="ghost" className="h-8">
+                  <Github className="h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/projects">
+                <Button size="sm" className="h-8">
+                  <ArrowUpRight className="mr-2 h-3 w-3" />
+                  Projects
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <AnimatePresence mode="wait">
           <motion.div
@@ -89,42 +143,91 @@ export default function HomePage() {
               transition={{ duration: 0.4, delay: 0.05, ease: "easeOut" }}
               className="relative"
             >
-              <Card className="hover:shadow-md transition-shadow duration-300">
-                <CardContent className="p-4 sm:p-6">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-md bg-muted">
-                        <FolderOpen className="h-5 w-5 text-muted-foreground" />
-                      </div>
-                      <div>
-                        <h2 className="text-xl font-semibold tracking-tight">
-                          Portfolio
-                        </h2>
-                        <p className="text-sm text-muted-foreground">
-                          10+ projects • Real-world solutions
-                        </p>
-                      </div>
-                    </div>
+              <motion.div
+                animate={{
+                  scale: isScrolled ? 0.95 : 1,
+                  opacity: isScrolled ? 0.8 : 1,
+                }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+              >
+                <Card className="hover:shadow-md transition-all duration-300 overflow-hidden">
+                  <motion.div
+                    animate={{
+                      height: isScrolled ? "auto" : "auto",
+                    }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                  >
+                    <CardContent className="p-4 sm:p-6">
+                      <motion.div
+                        animate={{
+                          scale: isScrolled ? 1.05 : 1,
+                        }}
+                        transition={{ duration: 0.3, ease: "easeOut" }}
+                        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0"
+                      >
+                        <div className="flex items-center gap-3">
+                          <motion.div
+                            animate={{
+                              scale: isScrolled ? 1.1 : 1,
+                            }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="p-2 rounded-md bg-muted"
+                          >
+                            <FolderOpen className="h-5 w-5 text-muted-foreground" />
+                          </motion.div>
+                          <div>
+                            <motion.h2
+                              animate={{
+                                fontSize: isScrolled ? "1.125rem" : "1.25rem",
+                              }}
+                              transition={{ duration: 0.3, ease: "easeOut" }}
+                              className="font-semibold tracking-tight"
+                            >
+                              Portfolio
+                            </motion.h2>
+                            <motion.p
+                              animate={{
+                                opacity: isScrolled ? 0.8 : 1,
+                              }}
+                              transition={{ duration: 0.3, ease: "easeOut" }}
+                              className="text-sm text-muted-foreground"
+                            >
+                              10+ projects • Real-world solutions
+                            </motion.p>
+                          </div>
+                        </div>
 
-                    <div className="flex gap-2 justify-end items-center mt-2 sm:mt-0">
-                      <Link
-                        href="https://github.com/mirchez"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      ></Link>
-                      <Link href="/projects">
-                        <Button size="sm" className="h-8">
-                          <ArrowUpRight className="mr-2 h-3 w-3" />
-                          <span className="hidden sm:inline">
-                            View Projects +10
-                          </span>
-                          <span className="sm:hidden">Projects</span>
-                        </Button>
-                      </Link>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                        <motion.div
+                          animate={{
+                            scale: isScrolled ? 1.05 : 1,
+                          }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
+                          className="flex gap-2 justify-end items-center mt-2 sm:mt-0"
+                        >
+                          <Link
+                            href="https://github.com/mirchez"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Button size="sm" variant="ghost" className="h-8">
+                              <Github className="h-4 w-4" />
+                            </Button>
+                          </Link>
+                          <Link href="/projects">
+                            <Button size="sm" className="h-8">
+                              <ArrowUpRight className="mr-2 h-3 w-3" />
+                              <span className="hidden sm:inline">
+                                View Projects +10
+                              </span>
+                              <span className="sm:hidden">Projects</span>
+                            </Button>
+                          </Link>
+                        </motion.div>
+                      </motion.div>
+                    </CardContent>
+                  </motion.div>
+                </Card>
+              </motion.div>
             </motion.div>
 
             {/* Hero Section */}
