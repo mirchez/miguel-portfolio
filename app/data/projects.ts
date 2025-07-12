@@ -2,6 +2,98 @@ import { Project } from "@/types/projects";
 
 export const projects: Project[] = [
   {
+    id: "27",
+    title: "Telos | AI Website Builder",
+    description:
+      " AI-powered “vibe-coding” platform that lets you build full-stack apps and websites entirely through a conversational interface.",
+    image: "/27-telos.PNG",
+    technologies: [
+      {
+        id: "react",
+        name: "React.js",
+        color: { bg: "#E9F3F7", text: "#487CA5" },
+      },
+      {
+        id: "typescript",
+        name: "TypeScript",
+        color: { bg: "#F6F3F8", text: "#8A67AB" },
+      },
+      {
+        id: "tailwind",
+        name: "Tailwind CSS",
+        color: { bg: "#F9F2F5", text: "#B35488" },
+      },
+      {
+        id: "node",
+        name: "Node.js",
+        color: { bg: "#EEF3ED", text: "#548164" },
+      },
+      {
+        id: "mongodb",
+        name: "MongoDB",
+        color: { bg: "#EEF3ED", text: "#548164" },
+      },
+      {
+        id: "express",
+        name: "Express.js",
+        color: { bg: "#FAECEC", text: "#C4554D" },
+      },
+      {
+        id: "mongoose",
+        name: "Mongoose",
+        color: { bg: "#E3F7E9", text: "#5BAF7C" },
+      },
+      { id: "vite", name: "Vite", color: { bg: "#FFF4E6", text: "#D98E2D" } },
+      {
+        id: "jwt",
+        name: "JWT Auth",
+        color: { bg: "#E9F3F7", text: "#2C6CA1" },
+      },
+      {
+        id: "react-query",
+        name: "React Query",
+        color: { bg: "#F3F2F7", text: "#6C5B9A" },
+      },
+      {
+        id: "rest-api",
+        name: "RESTful APIs",
+        color: { bg: "#F3EEEE", text: "#976D57" },
+      },
+      {
+        id: "bcrypt",
+        name: "bcrypt",
+        color: { bg: "#F0F0F0", text: "#7A7A7A" },
+      },
+      {
+        id: "react-hook-form",
+        name: "React Hook Form",
+        color: { bg: "#FDF4F7", text: "#D96D8C" },
+      },
+      {
+        id: "postman",
+        name: "Postman",
+        color: { bg: "#FFF4E6", text: "#F06529" },
+      },
+      {
+        id: "cloudinary",
+        name: "Cloudinary",
+        color: { bg: "#E9F3F7", text: "#4C8EEB" },
+      },
+      {
+        id: "html-css-js",
+        name: "HTML/CSS/JS",
+        color: { bg: "#FAECEC", text: "#C4554D" },
+      },
+      {
+        id: "javascript",
+        name: "JavaScript",
+        color: { bg: "#FAF3DD", text: "#C29343" },
+      },
+    ],
+    category: "fullstack",
+    link: "https://telos-steel.vercel.app",
+  },
+  {
     id: "21",
     title: "Forever Ecommerce",
     description:
