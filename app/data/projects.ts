@@ -95,7 +95,7 @@ export const projects: Project[] = [
   },
   {
     id: "21",
-    title: "Forever Ecommerce",
+    title: "Forever | Ecommerce",
     description:
       "Clothes Ecommerce is a Fullstack SPA created with MERN stack connected with Strip for payment method.",
     image: "/21-forever.PNG",
@@ -187,7 +187,7 @@ export const projects: Project[] = [
   },
   {
     id: "22",
-    title: "Forever Ecommerce Admin Page",
+    title: "Forever | Ecommerce Admin Page",
     description:
       "Admin Panel for Forever Ecommerce where the admin can update and sea all the products ordered and shipped",
     image: "/22-forever-admin.PNG",
@@ -279,7 +279,7 @@ export const projects: Project[] = [
   },
   {
     id: "12",
-    title: "DevTree Clone",
+    title: "DevTree",
     description:
       "Clone of the DevTree platform, enabling project and task management.",
     image: "/12-devtree.png",
@@ -371,7 +371,7 @@ export const projects: Project[] = [
   },
   {
     id: "25",
-    title: "Traffic Flow",
+    title: "Traffic Flow Dashboard",
     description:
       "Early Demo of a advanced traffic monitoring dashboard with real-time analytics, incident detection, and responsive design for modern cities. Here's a short video explaining it: https://app.screencastify.com/v2/watch/j8w8161xdcfmqhkclx2c",
     image: "/25-TrafficFlowe.PNG",
@@ -417,7 +417,7 @@ export const projects: Project[] = [
   },
   {
     id: "26",
-    title: "Form Builder Demo",
+    title: "Form Builder",
     description:
       "Early Demo of a advanced form builder. This is a modern web application designed to help users create custom forms quickly and effortlessly without writing a single line of code. It appears to be part of a broader SaaS concept aimed at streamlining form creation and response collection.",
     image: "/26-form-builder.PNG",
@@ -464,9 +464,9 @@ export const projects: Project[] = [
   },
   {
     id: "24",
-    title: "BackgroundGone AI",
+    title: "BackgroundGone | AI Background Changer",
     description:
-      "This project is a modern web application built with Next.js and React, leveraging ImageKit for powerful AI-driven image transformations. It uses Tailwind CSS for a utility-first styling approach, allowing for rapid UI development and a responsive design.",
+      "Change your background with AI just with a click, you can add backgrounds too.",
     image: "/24-BackgroundGoneAI.PNG",
     technologies: [
       {
@@ -510,7 +510,7 @@ export const projects: Project[] = [
   },
   {
     id: "15",
-    title: "Calendar App",
+    title: "Date | Online Calendar",
     description: "An online calendar where you can share your schedule.",
     image: "/15-calendarapp.PNG",
     technologies: [

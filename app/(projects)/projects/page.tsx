@@ -790,15 +790,24 @@ export default function Projects() {
                                     rel="noopener noreferrer"
                                     className="block w-full h-full"
                                   >
-                                    <div className="w-full h-full transform group-hover:scale-105 transition-transform duration-300">
-                                      <Image
-                                        src={
-                                          project.image || "/placeholder.svg"
-                                        }
-                                        alt={project.title || "Project"}
-                                        fill
-                                        className="object-cover"
-                                      />
+                                    <div className="relative w-full h-full overflow-hidden rounded-lg bg-muted">
+                                      <div className="w-full h-full transform group-hover:scale-110 transition-all duration-500 ease-out">
+                                        <Image
+                                          src={
+                                            project.image || "/placeholder.svg"
+                                          }
+                                          alt={
+                                            project.title || "Project thumbnail"
+                                          }
+                                          fill
+                                          className="object-cover transition-all duration-500 ease-out group-hover:brightness-110 group-hover:contrast-105"
+                                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        />
+                                      </div>
+
+                                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out" />
                                     </div>
                                   </Link>
                                 )}
