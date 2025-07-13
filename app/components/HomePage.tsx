@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Github,
@@ -20,22 +19,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useIsScrolled } from "@/lib/isScrolled";
 
 export default function HomePage() {
-  const [mounted, setMounted] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      setIsScrolled(scrollPosition > 100);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const { isMounted, isScrolled } = useIsScrolled();
 
   const techStack = [
     { name: "React", color: "bg-blue-500/10 text-blue-500 border-blue-500/20" },
@@ -77,7 +64,7 @@ export default function HomePage() {
     { icon: Mail, label: "Email", href: "mailto:mmirandasanchez16@gmail.com" },
   ];
 
-  if (!mounted) {
+  if (!isMounted) {
     return <div className="min-h-screen bg-background" />;
   }
 
@@ -90,7 +77,7 @@ export default function HomePage() {
           opacity: isScrolled ? 1 : 0,
           y: isScrolled ? 0 : -100,
         }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        transition={{ duration: 0.4, ease: "easeOut" }}
         className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b"
       >
         <div className="container mx-auto px-4 py-3 max-w-4xl">

@@ -38,6 +38,7 @@ import {
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import { useIsScrolled } from "@/lib/isScrolled";
 
 // Validate projects to prevent errors
 const validatedProjects = validateProjects(projects);
@@ -94,7 +95,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   filteredCount,
   totalCount,
 }) => {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(1024);
 
   // Block body scroll only on mobile when sidebar is open
   useEffect(() => {
@@ -340,7 +341,7 @@ export default function Projects() {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState(validatedProjects);
   const [api, setApi] = useState<CarouselApi>();
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(1024);
 
   // Initialize sidebar state based on screen size
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -443,6 +444,7 @@ export default function Projects() {
 
   const featuredProjects = getFeaturedProjects();
   const shouldShowFeatured = featuredProjects.length > 0;
+  const { isScrolled } = useIsScrolled();
 
   return (
     <div className="min-h-screen bg-background">
@@ -463,7 +465,7 @@ export default function Projects() {
 
         {/* Main Content */}
         <div className="flex-1 lg:ml-0">
-          <div className="container mx-auto px-4 py-8 max-w-7xl">
+          <div className="container mx-auto px-4 py-6 max-w-7xl">
             <AnimatePresence mode="wait">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
@@ -479,37 +481,89 @@ export default function Projects() {
                   className="space-y-6"
                 >
                   {/* Top Navigation */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
+
+                  {/* Top Navigation - Static */}
+                  <motion.div className="w-full">
+                    <div className="w-full flex items-center justify-between">
+                      <div className="w-full flex items-center justify-between">
+                        <Button
+                          variant="outline"
+                          size="icon"
+                          onClick={() => setSidebarOpen(!sidebarOpen)}
+                          className="lg:hidden"
+                        >
+                          <Menu className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="outline"
+                          asChild
+                          className="flex items-center justify-center"
+                        >
+                          <Link href="/">
+                            <ArrowLeft className="mr-2 h-4 w-4" />
+                            Back to Home
+                          </Link>
+                        </Button>
+                      </div>
                       <Button
-                        variant="outline"
-                        size="icon"
+                        variant="ghost"
+                        size="sm"
                         onClick={() => setSidebarOpen(!sidebarOpen)}
-                        className="lg:hidden"
+                        className="hidden lg:flex items-center gap-2"
                       >
-                        <Menu className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        asChild
-                        className="hidden sm:flex"
-                      >
-                        <Link href="/">
-                          <ArrowLeft className="mr-2 h-4 w-4" />
-                          Back to Home
-                        </Link>
+                        <Filter className="h-4 w-4" />
+                        {sidebarOpen ? "Hide" : "Show"} Filters
                       </Button>
                     </div>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => setSidebarOpen(!sidebarOpen)}
-                      className="hidden lg:flex items-center gap-2"
+                  </motion.div>
+
+                  {/* Fixed Navigation - Appears on scroll */}
+                  {!sidebarOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -100 }}
+                      animate={{
+                        opacity: isScrolled ? 1 : 0,
+                        y: isScrolled ? 0 : -100,
+                      }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b"
                     >
-                      <Filter className="h-4 w-4" />
-                      {sidebarOpen ? "Hide" : "Show"} Filters
-                    </Button>
-                  </div>
+                      {/* Mantener el mismo padding y estructura del contenedor padre */}
+                      <div className="container mx-auto px-4 py-3 max-w-7xl">
+                        <div className="w-full flex items-center justify-between">
+                          <div className="w-full flex items-center justify-between gap-3">
+                            <Button
+                              variant="outline"
+                              size="icon"
+                              onClick={() => setSidebarOpen(!sidebarOpen)}
+                              className="lg:hidden"
+                            >
+                              <Menu className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              variant="outline"
+                              asChild
+                              className="flex items-center justify-center"
+                            >
+                              <Link href="/">
+                                <ArrowLeft className="mr-2 h-4 w-4" />
+                                Back to Home
+                              </Link>
+                            </Button>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => setSidebarOpen(!sidebarOpen)}
+                            className="hidden lg:flex items-center gap-2"
+                          >
+                            <Filter className="h-4 w-4" />
+                            {sidebarOpen ? "Hide" : "Show"} Filters
+                          </Button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
 
                   {/* Title */}
                   <div className="space-y-2">
