@@ -340,7 +340,15 @@ export default function Projects() {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [filteredProjects, setFilteredProjects] = useState(validatedProjects);
   const [api, setApi] = useState<CarouselApi>();
+  const isMobile = useIsMobile();
+
+  // Initialize sidebar state based on screen size
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Set initial sidebar state after component mounts
+  useEffect(() => {
+    setSidebarOpen(!isMobile);
+  }, [isMobile]);
 
   // Debounced search handler
   const debouncedSearchHandler = useCallback(

@@ -176,13 +176,7 @@ export default function HomePage() {
                             <FolderOpen className="h-5 w-5 text-muted-foreground" />
                           </motion.div>
                           <div>
-                            <motion.h2
-                              animate={{
-                                fontSize: isScrolled ? "1.125rem" : "1.25rem",
-                              }}
-                              transition={{ duration: 0.3, ease: "easeOut" }}
-                              className="font-semibold tracking-tight"
-                            >
+                            <motion.h2 className="font-semibold tracking-tight">
                               Portfolio
                             </motion.h2>
                             <motion.p
