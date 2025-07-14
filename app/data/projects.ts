@@ -497,8 +497,8 @@ export const projects: Project[] = [
         color: { bg: "#000000", text: "#E9F3F7" },
       },
       {
-        id: "Web Hooks | Clerk",
-        name: "webhook",
+        id: "webhook",
+        name: "Webhooks | Clerk",
         color: { bg: "#000000", text: "#E9F3F7" },
       },
 

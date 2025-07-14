@@ -170,8 +170,14 @@ const Sidebar: React.FC<SidebarProps> = ({
               transition={{ delay: 0.1 }}
               className="flex items-center gap-2"
             >
-              <Filter className="h-5 w-5 text-primary" />
-              <h2 className="font-semibold text-lg">Filters</h2>
+              <Button
+                className="cursor-pointer"
+                onClick={onToggle}
+                variant="ghost"
+              >
+                <Filter className="h-5 w-5 text-primary" />
+                <h2 className="font-semibold text-lg">Filters</h2>
+              </Button>
             </motion.div>
             <Button
               variant="ghost"
@@ -509,7 +515,7 @@ export default function Projects() {
                         variant="ghost"
                         size="sm"
                         onClick={() => setSidebarOpen(!sidebarOpen)}
-                        className="hidden lg:flex items-center gap-2"
+                        className="hidden lg:flex items-center gap-2 cursor-pointer"
                       >
                         <Filter className="h-4 w-4" />
                         {sidebarOpen ? "Hide" : "Show"} Filters
@@ -555,10 +561,10 @@ export default function Projects() {
                             variant="ghost"
                             size="sm"
                             onClick={() => setSidebarOpen(!sidebarOpen)}
-                            className="hidden lg:flex items-center gap-2"
+                            className="hidden lg:flex items-center gap-2 cursor-pointer"
                           >
                             <Filter className="h-4 w-4" />
-                            {sidebarOpen ? "Hide" : "Show"} Filters
+                            {sidebarOpen ? "Hide" : "Show"} Filter
                           </Button>
                         </div>
                       </div>
