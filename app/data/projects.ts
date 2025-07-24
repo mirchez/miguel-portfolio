@@ -730,73 +730,73 @@ export const projects: Project[] = [
     category: "social",
     link: "https://calendar-backend-k4qx.onrender.com/auth/login",
   },
-  {
-    id: "23",
-    title: "Dashboard",
-    description:
-      "Dashboard for a company to manage their payments and clients, created with Next.js and Shadcn UI.",
-    image: "/23-dashboard.PNG",
-    technologies: [
-      {
-        id: "next",
-        name: "Next.js",
-        color: { bg: "#000000", text: "#E9F3F7" },
-      },
-      {
-        id: "react",
-        name: "React.js",
-        color: { bg: "#E9F3F7", text: "#487CA5" },
-      },
-      {
-        id: "typescript",
-        name: "TypeScript",
-        color: { bg: "#F6F3F8", text: "#8A67AB" },
-      },
-      {
-        id: "tailwind",
-        name: "Tailwind CSS",
-        color: { bg: "#F9F2F5", text: "#B35488" },
-      },
-      {
-        id: "neon",
-        name: "PostgreSQL",
-        color: { bg: "#EEF3ED", text: "#548164" },
-      },
-      {
-        id: "express",
-        name: "Express.js",
-        color: { bg: "#FAECEC", text: "#C4554D" },
-      },
-      {
-        id: "prisma",
-        name: "Prisma ORM",
-        color: { bg: "#E3F7E9", text: "#5BAF7C" },
-      },
+  // {
+  //   id: "23",
+  //   title: "Dashboard",
+  //   description:
+  //     "Dashboard for a company to manage their payments and clients, created with Next.js and Shadcn UI.",
+  //   image: "/23-dashboard.PNG",
+  //   technologies: [
+  //     {
+  //       id: "next",
+  //       name: "Next.js",
+  //       color: { bg: "#000000", text: "#E9F3F7" },
+  //     },
+  //     {
+  //       id: "react",
+  //       name: "React.js",
+  //       color: { bg: "#E9F3F7", text: "#487CA5" },
+  //     },
+  //     {
+  //       id: "typescript",
+  //       name: "TypeScript",
+  //       color: { bg: "#F6F3F8", text: "#8A67AB" },
+  //     },
+  //     {
+  //       id: "tailwind",
+  //       name: "Tailwind CSS",
+  //       color: { bg: "#F9F2F5", text: "#B35488" },
+  //     },
+  //     {
+  //       id: "neon",
+  //       name: "PostgreSQL",
+  //       color: { bg: "#EEF3ED", text: "#548164" },
+  //     },
+  //     {
+  //       id: "express",
+  //       name: "Express.js",
+  //       color: { bg: "#FAECEC", text: "#C4554D" },
+  //     },
+  //     {
+  //       id: "prisma",
+  //       name: "Prisma ORM",
+  //       color: { bg: "#E3F7E9", text: "#5BAF7C" },
+  //     },
 
-      {
-        id: "rest-api",
-        name: "RESTful APIs",
-        color: { bg: "#F3EEEE", text: "#976D57" },
-      },
-      {
-        id: "postman",
-        name: "Postman",
-        color: { bg: "#FFF4E6", text: "#F06529" },
-      },
-      {
-        id: "html-css-js",
-        name: "HTML/CSS/JS",
-        color: { bg: "#FAECEC", text: "#C4554D" },
-      },
-      {
-        id: "javascript",
-        name: "JavaScript",
-        color: { bg: "#FAF3DD", text: "#C29343" },
-      },
-    ],
-    category: "fullstack",
-    link: "https://dashboard-example-seven-gilt.vercel.app",
-  },
+  //     {
+  //       id: "rest-api",
+  //       name: "RESTful APIs",
+  //       color: { bg: "#F3EEEE", text: "#976D57" },
+  //     },
+  //     {
+  //       id: "postman",
+  //       name: "Postman",
+  //       color: { bg: "#FFF4E6", text: "#F06529" },
+  //     },
+  //     {
+  //       id: "html-css-js",
+  //       name: "HTML/CSS/JS",
+  //       color: { bg: "#FAECEC", text: "#C4554D" },
+  //     },
+  //     {
+  //       id: "javascript",
+  //       name: "JavaScript",
+  //       color: { bg: "#FAF3DD", text: "#C29343" },
+  //     },
+  //   ],
+  //   category: "fullstack",
+  //   link: "https://dashboard-example-seven-gilt.vercel.app",
+  // },
   {
     id: "16",
     title: "Journal App",
