@@ -34,6 +34,11 @@ export const projects: Project[] = [
         color: { bg: "#F3EEEE", text: "#976D57" },
       },
       {
+        id: "hono",
+        name: "Hono.js",
+        color: { bg: "#E9F3F7", text: "#4C8EEB" },
+      },
+      {
         id: "tailwind",
         name: "Tailwind CSS",
         color: { bg: "#F9F2F5", text: "#B35488" },
